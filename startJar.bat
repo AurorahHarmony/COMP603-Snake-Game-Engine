@@ -1,0 +1,1 @@
+java -jar ./dist/COMP603-Assessment-1.jar
