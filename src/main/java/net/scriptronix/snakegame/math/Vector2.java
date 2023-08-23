@@ -1,4 +1,4 @@
-package net.scriptronix.snakegame.world;
+package net.scriptronix.snakegame.math;
 
 /**
  * Structure for storing Vector2 data
