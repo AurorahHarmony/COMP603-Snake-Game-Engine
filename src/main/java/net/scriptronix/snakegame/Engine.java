@@ -10,6 +10,7 @@ import net.scriptronix.snakegame.rendering.IRenderer;
 public class Engine {
 
     boolean isRunning;
+    boolean isTicking;
     IRenderer renderer;
     GameState gameState;
 
@@ -32,7 +33,7 @@ public class Engine {
         while (isRunning) {
             render();
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 isRunning = false;
                 e.printStackTrace();
