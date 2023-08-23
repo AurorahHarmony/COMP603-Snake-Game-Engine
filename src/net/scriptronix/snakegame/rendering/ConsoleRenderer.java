@@ -50,6 +50,9 @@ public class ConsoleRenderer implements IRenderer {
         System.out.println(this.outString);
     }
 
+    /**
+     * Initializes the outputMatrix, drawing a border around the screen.
+     */
     private void initScreen() {
         this.outputMatrix = new char[outerScreenHeight][outerScreenWidth]; // Add 2 to make space for the borders
 
@@ -87,6 +90,9 @@ public class ConsoleRenderer implements IRenderer {
         }
     }
 
+    /**
+     * Sets each pixel in the output matrix to an empty space character.
+     */
     private void clearOutputMatix() {
         for (int i = 0; i < this.screenHeight + 1; i++) {
             for (int j = 0; j < this.screenWidth + 1; j++) {
