@@ -17,8 +17,12 @@ public class ConsoleRenderer implements IRenderer {
     private StringBuilder outString = new StringBuilder();
 
     public ConsoleRenderer() {
-        this.screenWidth = 30;
-        this.screenHeight = 10;
+        this(30,10);
+    }
+    
+    public ConsoleRenderer(int screenWidth, int screenHeight) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         this.outerScreenHeight = this.screenHeight + 2;
         this.outerScreenWidth = this.screenWidth + 2;
         
