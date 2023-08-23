@@ -3,9 +3,6 @@ package net.scriptronix.snakegame.rendering;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.scriptronix.snakegame.game.GameState;
 
 /**
@@ -13,10 +10,20 @@ import net.scriptronix.snakegame.game.GameState;
  */
 public class ConsoleRenderer implements IRenderer {
 
-    Robot robot;
-    String test = "";
-    
+    private Robot robot;
+    private final int screenWidth, screenHeight;
+    private final int outerScreenWidth, outerScreenHeight;
+    private char[][] outputMatrix; // [height][width]
+    private StringBuilder outString = new StringBuilder();
+
     public ConsoleRenderer() {
+        this.screenWidth = 30;
+        this.screenHeight = 10;
+        this.outerScreenHeight = this.screenHeight + 2;
+        this.outerScreenWidth = this.screenWidth + 2;
+        
+        this.initScreen();
+
         try {
             robot = new Robot();
         } catch (AWTException ex) {
@@ -28,8 +35,33 @@ public class ConsoleRenderer implements IRenderer {
     @Override
     public void render(GameState gameState) {
         clearScreen();
-        test += "=";
-        System.out.println(test);
+        this.outString.setLength(0);
+
+        for (char[] down : this.outputMatrix) {
+            for (char colChar : down) {
+                this.outString.append(colChar);
+            }
+            this.outString.append('\n');
+        }
+        System.out.println(this.outString);
+    }
+
+    private void initScreen() {
+        this.outputMatrix = new char[outerScreenHeight][outerScreenWidth]; // Add 2 to make space for the borders
+
+        clearOutputMatix();
+
+        // Draws top and bottom borders.
+        for (int i = 0; i < outerScreenHeight; i += this.screenHeight + 1) {
+            for (int j = 0; j < outerScreenWidth; j++) {
+                this.outputMatrix[i][j] = '#';
+            }
+        }
+
+        for (int i = 1; i < this.screenHeight + 1; i++) {
+            this.outputMatrix[i][0] = '#';
+            this.outputMatrix[i][this.screenWidth + 1] = '#';
+        }
 
     }
 
@@ -48,6 +80,14 @@ public class ConsoleRenderer implements IRenderer {
             robot.keyPress(KeyEvent.VK_L);
             robot.keyRelease(KeyEvent.VK_L);
             robot.keyRelease(KeyEvent.VK_CONTROL);
+        }
+    }
+
+    private void clearOutputMatix() {
+        for (int i = 0; i < this.screenHeight + 1; i++) {
+            for (int j = 0; j < this.screenWidth + 1; j++) {
+                this.outputMatrix[i][j] = ' ';
+            }
         }
     }
 
