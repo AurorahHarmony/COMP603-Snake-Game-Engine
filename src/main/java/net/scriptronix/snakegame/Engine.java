@@ -1,6 +1,7 @@
 package net.scriptronix.snakegame;
 
 import net.scriptronix.snakegame.game.GameState;
+import net.scriptronix.snakegame.input.InputManager;
 import net.scriptronix.snakegame.rendering.ConsoleRenderer;
 import net.scriptronix.snakegame.rendering.IRenderer;
 
@@ -21,6 +22,8 @@ public class Engine {
         this.isRunning = false;
         this.renderer = new ConsoleRenderer();
         this.gameState = new GameState();
+        
+        InputManager.initialize();
         
         loop();
     }
