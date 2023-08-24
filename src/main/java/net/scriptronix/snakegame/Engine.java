@@ -2,6 +2,7 @@ package net.scriptronix.snakegame;
 
 import net.scriptronix.snakegame.game.GameState;
 import net.scriptronix.snakegame.input.InputManager;
+import net.scriptronix.snakegame.message.MessageBus;
 import net.scriptronix.snakegame.rendering.ConsoleRenderer;
 import net.scriptronix.snakegame.rendering.IRenderer;
 import net.scriptronix.snakegame.world.Scene;
@@ -35,6 +36,7 @@ public class Engine {
     public void loop() {
         isRunning = true;
         while (isRunning) {
+            this.update();
             render();
             try {
                 Thread.sleep(1000);
@@ -43,6 +45,10 @@ public class Engine {
                 e.printStackTrace();
             }
         }
+    }
+    
+    private void update() {
+        MessageBus.update();
     }
 
     private void render() {
