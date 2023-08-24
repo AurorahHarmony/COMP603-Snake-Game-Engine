@@ -9,7 +9,7 @@ public class Message {
     private final Object context;
     private final Object sender;
 
-    public Message(String code, Object context, Object sender) {
+    public Message(String code,  Object sender, Object context) {
         this.code = code;
         this.context = context;
         this.sender = sender;
@@ -43,7 +43,7 @@ public class Message {
      * @param context 
      */
     public static void send(String code, Object sender, Object context) {
-
+        MessageBus.post(new Message(code, sender, context));
     }
 
     /**
@@ -52,6 +52,7 @@ public class Message {
      * @param handler 
      */
     public static void subscribe(String code, IMessageHandler handler) {
+        MessageBus.addSubscription(code, handler);
     }
 
     /**
@@ -60,6 +61,7 @@ public class Message {
      * @param handler 
      */
     public static void unsubscribe(String code, IMessageHandler handler) {
+        MessageBus.removeSubscription(code, handler);
     }
 
 }
