@@ -3,7 +3,10 @@ package net.scriptronix.snakegame.rendering;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import net.scriptronix.snakegame.game.GameState;
+import java.util.ArrayList;
+import net.scriptronix.snakegame.math.Vector2;
+import net.scriptronix.snakegame.world.Scene;
+import net.scriptronix.snakegame.world.SceneObject;
 
 /**
  * Renders the game to a console
@@ -17,15 +20,15 @@ public class ConsoleRenderer implements IRenderer {
     private StringBuilder outString = new StringBuilder();
 
     public ConsoleRenderer() {
-        this(30,10);
+        this(30, 10);
     }
-    
+
     public ConsoleRenderer(int screenWidth, int screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.outerScreenHeight = this.screenHeight + 2;
         this.outerScreenWidth = this.screenWidth + 2;
-        
+
         this.initScreen();
 
         try {
@@ -37,10 +40,19 @@ public class ConsoleRenderer implements IRenderer {
     }
 
     @Override
-    public void render(GameState gameState) {
-        clearScreen();
+    public void render(Scene scene) {
         this.outString.setLength(0);
 
+        scene.getSceneObjects().forEach((sceneObj) -> { // TODO: Refactor into its own function.
+            if (sceneObj instanceof IConsoleRenderable) {
+                for (ConsolePixel cPixel : sceneObj.getConsolePixels()) {
+                    Vector2 pixelPos = cPixel.getPos();
+                    this.outputMatrix[(int) pixelPos.getY() + 1][(int) pixelPos.getX() + 1] = cPixel.getSymbol();
+                }
+            }
+        });
+        
+        clearScreen();
         for (char[] down : this.outputMatrix) {
             for (char colChar : down) {
                 this.outString.append(colChar);

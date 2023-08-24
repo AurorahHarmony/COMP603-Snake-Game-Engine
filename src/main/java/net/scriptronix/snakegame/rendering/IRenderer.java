@@ -1,6 +1,6 @@
 package net.scriptronix.snakegame.rendering;
 
-import net.scriptronix.snakegame.game.GameState;
+import net.scriptronix.snakegame.world.Scene;
 
 /**
  * Interface defining a renderer
@@ -8,7 +8,7 @@ import net.scriptronix.snakegame.game.GameState;
 public interface IRenderer {
     /**
      * Renders the game in its current state.
-     * @param gameState the current state of the game
+     * @param scene the current state of the game
      */
-    public void render(GameState gameState);
+    public void render(Scene scene);
 }

@@ -4,6 +4,7 @@ import net.scriptronix.snakegame.game.GameState;
 import net.scriptronix.snakegame.input.InputManager;
 import net.scriptronix.snakegame.rendering.ConsoleRenderer;
 import net.scriptronix.snakegame.rendering.IRenderer;
+import net.scriptronix.snakegame.world.Scene;
 
 /**
  * The main game engine class
@@ -13,7 +14,7 @@ public class Engine {
     boolean isRunning;
     boolean isTicking;
     IRenderer renderer;
-    GameState gameState;
+    Scene scene;
 
     /**
      * Stands up the engine and starts the game loop.
@@ -21,7 +22,7 @@ public class Engine {
     public void start() {
         this.isRunning = false;
         this.renderer = new ConsoleRenderer();
-        this.gameState = new GameState();
+        this.scene = new Scene();
         
         InputManager.initialize();
         
@@ -45,6 +46,6 @@ public class Engine {
     }
 
     private void render() {
-        renderer.render(gameState);
+        renderer.render(this.scene);
     }
 }
