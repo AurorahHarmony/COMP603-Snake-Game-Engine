@@ -24,9 +24,9 @@ public class Engine {
         this.isRunning = false;
         this.renderer = new ConsoleRenderer();
         this.scene = new Scene();
-        
+
         InputManager.initialize();
-        
+
         loop();
     }
 
@@ -46,9 +46,11 @@ public class Engine {
             }
         }
     }
-    
+
     private void update() {
+        // TODO: Implement delta time for Assessment 2
         MessageBus.update();
+        this.scene.update();
     }
 
     private void render() {

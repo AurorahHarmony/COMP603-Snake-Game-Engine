@@ -12,7 +12,8 @@ import net.scriptronix.snakegame.rendering.IConsoleRenderable;
  */
 public class SceneObject implements IConsoleRenderable, IMessageHandler {
 
-    char symbol = 'x';
+    Vector2 velocity = Vector2.zero();
+    Vector2 position = Vector2.zero();
 
     public SceneObject() {
         this.init();
@@ -24,7 +25,7 @@ public class SceneObject implements IConsoleRenderable, IMessageHandler {
 
     @Override
     public ConsolePixel[] getConsolePixels() {
-        ConsolePixel cPixel = new ConsolePixel(Vector2.zero(), symbol);
+        ConsolePixel cPixel = new ConsolePixel(position, 'o');
         ConsolePixel[] cPixArr = {cPixel};
         return cPixArr;
     }
@@ -34,16 +35,20 @@ public class SceneObject implements IConsoleRenderable, IMessageHandler {
         if (msg.isCode("INPUT_ACTION")) {
             switch ((EInputAction) msg.getContext()) {
                 case MOVE_LEFT:
-                    symbol = 'l';
+                    velocity.setX(-1);
+                    velocity.setY(0);
                     break;
                 case MOVE_UP:
-                    symbol = 'u';
+                    velocity.setX(0);
+                    velocity.setY(-1);
                     break;
                 case MOVE_RIGHT:
-                    symbol = 'r';
+                    velocity.setX(1);
+                    velocity.setY(0);
                     break;
                 case MOVE_DOWN:
-                    symbol = 'd';
+                    velocity.setX(0);
+                    velocity.setY(1);
                     break;
                 default:
                     break;
@@ -51,6 +56,10 @@ public class SceneObject implements IConsoleRenderable, IMessageHandler {
             }
 
         }
+    }
+
+    void update() {
+        position.add(velocity);
     }
 
 }

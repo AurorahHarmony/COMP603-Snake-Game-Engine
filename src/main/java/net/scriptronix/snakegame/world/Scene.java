@@ -18,6 +18,15 @@ public class Scene {
     public ArrayList<SceneObject> getSceneObjects() {
         return this.sceneObjects;
     }
+
+    /**
+     * Run the update function on each object in the scene
+     */
+    public void update() {
+        for (SceneObject obj : this.sceneObjects) {
+            obj.update();
+        }
+    }
     
     
 }
