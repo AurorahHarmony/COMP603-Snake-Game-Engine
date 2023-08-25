@@ -53,6 +53,15 @@ public class Vector2 {
     }
     
     /**
+     * Add the values from another Vector2 to this Vector2
+     * @param vec 
+     */
+    public void add(Vector2 vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+    }
+    
+    /**
      * Creates a new zero Vector2 (0,0)
      * @return 
      */
