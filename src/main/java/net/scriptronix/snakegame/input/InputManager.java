@@ -6,13 +6,13 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.scriptronix.snakegame.message.Message;
 
 /**
  * Handles application inputs and notifies the rest of the application about
  * inputs.
  */
 public class InputManager implements NativeKeyListener {
-
     private static boolean[] keys;
 
     private InputManager() {
@@ -42,6 +42,11 @@ public class InputManager implements NativeKeyListener {
         }
 
         InputManager.keys[e.getKeyCode()] = true;
+        
+        EInputAction action;
+        if ((action = ActionMappings.getAction(e.getKeyCode())) != null) {
+            Message.send("INPUT_ACTION", this, action);
+        }
     }
 
     @Override
@@ -50,6 +55,5 @@ public class InputManager implements NativeKeyListener {
             return;
         }
         InputManager.keys[e.getKeyCode()] = false;
-
     }
 }
