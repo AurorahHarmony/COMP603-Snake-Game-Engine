@@ -35,6 +35,15 @@ public class Message {
     public Object getSender() {
         return sender;
     }
+    
+    /**
+     * Checks whether the provided code is the same as the one in this message.
+     * @param code
+     * @return true if the codes match.
+     */
+    public boolean isCode(String code) {
+        return this.code.equals(code);
+    }
 
     /**
      * Sends a message through the message bus.
