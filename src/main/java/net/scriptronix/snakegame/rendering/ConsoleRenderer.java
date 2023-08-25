@@ -118,11 +118,11 @@ public class ConsoleRenderer implements IRenderer {
     }
 
     /**
-     * Sets each pixel in the output matrix to an empty space character.
+     * Sets each pixel in the view portion of the output matrix to an empty space character.
      */
     private void clearOutputMatix() {
-        for (int i = 0; i < this.screenHeight + 1; i++) {
-            for (int j = 0; j < this.screenWidth + 1; j++) {
+        for (int i = 1; i < this.screenHeight + 1; i++) {
+            for (int j = 1; j < this.screenWidth + 1; j++) {
                 this.outputMatrix[i][j] = ' ';
             }
         }
