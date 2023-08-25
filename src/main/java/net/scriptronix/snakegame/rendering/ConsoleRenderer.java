@@ -43,15 +43,18 @@ public class ConsoleRenderer implements IRenderer {
     public void render(Scene scene) {
         this.outString.setLength(0);
 
+        clearOutputMatix();
         scene.getSceneObjects().forEach((sceneObj) -> { // TODO: Refactor into its own function.
-            if (sceneObj instanceof IConsoleRenderable) {
+            if (sceneObj instanceof IConsoleRenderable)
                 for (ConsolePixel cPixel : sceneObj.getConsolePixels()) {
+                    if (outsideScreen(cPixel)) // Cull out of bounds pixels
+                        continue;
+
                     Vector2 pixelPos = cPixel.getPos();
                     this.outputMatrix[(int) pixelPos.getY() + 1][(int) pixelPos.getX() + 1] = cPixel.getSymbol();
                 }
-            }
         });
-        
+
         clearScreen();
         for (char[] down : this.outputMatrix) {
             for (char colChar : down) {
@@ -60,6 +63,18 @@ public class ConsoleRenderer implements IRenderer {
             this.outString.append('\n');
         }
         System.out.println(this.outString);
+    }
+
+    /**
+     * Checks to see whether a consolePixel is placed outside of the view-port
+     *
+     * @return
+     */
+    private boolean outsideScreen(ConsolePixel cPixel) {
+        Vector2 pixelPos = cPixel.getPos();
+        int pX = (int) pixelPos.getX();
+        int pY = (int) pixelPos.getY();
+        return pX < 0 || pY < 0 || pX > this.screenWidth || pY > this.screenHeight;
     }
 
     /**
