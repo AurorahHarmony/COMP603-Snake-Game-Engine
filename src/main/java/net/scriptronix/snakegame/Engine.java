@@ -1,6 +1,5 @@
 package net.scriptronix.snakegame;
 
-import net.scriptronix.snakegame.game.GameState;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.input.InputManager;
 import net.scriptronix.snakegame.message.IMessageHandler;
