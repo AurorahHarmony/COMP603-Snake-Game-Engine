@@ -3,10 +3,8 @@ package net.scriptronix.snakegame.rendering;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.world.Scene;
-import net.scriptronix.snakegame.world.SceneObject;
 
 /**
  * Renders the game to a console

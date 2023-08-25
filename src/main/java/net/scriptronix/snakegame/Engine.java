@@ -15,7 +15,6 @@ import net.scriptronix.snakegame.world.Scene;
 public class Engine implements IMessageHandler {
 
     boolean isRunning;
-    boolean isTicking;
     IRenderer renderer;
     Scene scene;
 

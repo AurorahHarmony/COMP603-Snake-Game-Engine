@@ -3,7 +3,6 @@ package net.scriptronix.snakegame.message;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Facilitates the transaction of messages throughout the application.
