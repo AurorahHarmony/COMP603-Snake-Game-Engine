@@ -45,14 +45,17 @@ public class ConsoleRenderer implements IRenderer {
 
         clearOutputMatix();
         scene.getSceneObjects().forEach((sceneObj) -> { // TODO: Refactor into its own function.
-            if (sceneObj instanceof IConsoleRenderable)
-                for (ConsolePixel cPixel : sceneObj.getConsolePixels()) {
+            if (sceneObj instanceof IConsoleRenderable) {
+                IConsoleRenderable renderable = (IConsoleRenderable) sceneObj;
+
+                for (ConsolePixel cPixel : renderable.getConsolePixels()) {
                     if (outsideScreen(cPixel)) // Cull out of bounds pixels
                         continue;
 
                     Vector2 pixelPos = cPixel.getPos();
                     this.outputMatrix[(int) pixelPos.getY() + 1][(int) pixelPos.getX() + 1] = cPixel.getSymbol();
                 }
+            }
         });
 
         clearScreen();
@@ -116,7 +119,8 @@ public class ConsoleRenderer implements IRenderer {
     }
 
     /**
-     * Sets each pixel in the view portion of the output matrix to an empty space character.
+     * Sets each pixel in the view portion of the output matrix to an empty
+     * space character.
      */
     private void clearOutputMatix() {
         for (int i = 1; i < this.screenHeight + 1; i++) {

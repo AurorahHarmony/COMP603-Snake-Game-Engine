@@ -1,65 +1,33 @@
 package net.scriptronix.snakegame.world;
 
-import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
-import net.scriptronix.snakegame.message.IMessageHandler;
-import net.scriptronix.snakegame.message.Message;
-import net.scriptronix.snakegame.rendering.ConsolePixel;
-import net.scriptronix.snakegame.rendering.IConsoleRenderable;
 
 /**
- * Stores the information about an object in the scene.
+ * an object that can be placed in the scene
  */
-public class SceneObject implements IConsoleRenderable, IMessageHandler {
+public abstract class SceneObject {
 
-    Vector2 velocity = Vector2.zero();
-    Vector2 position = Vector2.zero();
+    protected Vector2 position;
 
     public SceneObject() {
-        this.init();
+        this(Vector2.zero());
     }
 
-    private void init() {
-        Message.subscribe("INPUT_ACTION", this);
+    public SceneObject(Vector2 position) {
+        this.position = position;
     }
 
-    @Override
-    public ConsolePixel[] getConsolePixels() {
-        ConsolePixel cPixel = new ConsolePixel(position, 'o');
-        ConsolePixel[] cPixArr = {cPixel};
-        return cPixArr;
+    /**
+     * @return The Vector2 position of this object
+     */
+    public Vector2 getPosition() {
+        return position;
     }
 
-    @Override
-    public void onMessage(Message msg) {
-        if (msg.isCode("INPUT_ACTION")) {
-            switch ((EInputAction) msg.getContext()) {
-                case MOVE_LEFT:
-                    velocity.setX(-1);
-                    velocity.setY(0);
-                    break;
-                case MOVE_UP:
-                    velocity.setX(0);
-                    velocity.setY(-1);
-                    break;
-                case MOVE_RIGHT:
-                    velocity.setX(1);
-                    velocity.setY(0);
-                    break;
-                case MOVE_DOWN:
-                    velocity.setX(0);
-                    velocity.setY(1);
-                    break;
-                default:
-                    break;
-
-            }
-
-        }
+    /**
+     * Updates the state of this object. It should be called on every tick.
+     */
+    public void update() {
     }
-
-    void update() {
-        position.add(velocity);
-    }
-
+;
 }

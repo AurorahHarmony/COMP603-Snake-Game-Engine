@@ -1,6 +1,7 @@
 package net.scriptronix.snakegame.world;
 
 import java.util.ArrayList;
+import net.scriptronix.snakegame.game.Snake;
 
 /**
  * Container for all objects within a scene
@@ -9,7 +10,7 @@ public class Scene {
     private ArrayList<SceneObject> sceneObjects = new ArrayList<>();
 
     public Scene() {
-        this.sceneObjects.add(new SceneObject());
+        this.sceneObjects.add(new Snake());
     }
     
     /**
