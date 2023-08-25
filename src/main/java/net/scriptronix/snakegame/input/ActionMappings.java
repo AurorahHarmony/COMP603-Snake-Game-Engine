@@ -1,5 +1,6 @@
 package net.scriptronix.snakegame.input;
 
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import java.util.HashMap;
 
 /**
@@ -8,10 +9,10 @@ import java.util.HashMap;
 public class ActionMappings {
 
     private static final HashMap<Integer, EInputAction> mappings = new HashMap<>() {{
-        put(30, EInputAction.MOVE_LEFT);
-        put(17, EInputAction.MOVE_UP);
-        put(32, EInputAction.MOVE_RIGHT);
-        put(31, EInputAction.MOVE_DOWN);
+        put(NativeKeyEvent.VC_A, EInputAction.MOVE_LEFT);
+        put(NativeKeyEvent.VC_W, EInputAction.MOVE_UP);
+        put(NativeKeyEvent.VC_D, EInputAction.MOVE_RIGHT);
+        put(NativeKeyEvent.VC_S, EInputAction.MOVE_DOWN);
     }};
 
     public static EInputAction getAction(int keyCode) {
