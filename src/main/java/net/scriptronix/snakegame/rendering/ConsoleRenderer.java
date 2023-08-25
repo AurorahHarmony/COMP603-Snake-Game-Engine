@@ -100,16 +100,14 @@ public class ConsoleRenderer implements IRenderer {
     }
 
     /**
-     * Clears the console.
+     * Clears the console, readying it for drawing the next frame
      */
     private void clearScreen() {
-        if (System.console() != null) {
+        if (System.console() != null)
             System.out.print("\033[H\033[2J");
-
-        } else { // There is no console. Fallback to simulating clear-screen command
-            if (robot == null) {
+        else { // There is no console. Fallback to simulating clear-screen command
+            if (robot == null)
                 return;
-            }
             robot.keyPress(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_L);
             robot.keyRelease(KeyEvent.VK_L);
