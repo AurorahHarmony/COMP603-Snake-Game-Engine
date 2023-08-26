@@ -22,44 +22,47 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         super(scene);
         this.init();
     }
-    
+
     private void init() {
         Message.subscribe("INPUT_ACTION", this);
     }
-    
+
     @Override
     public ConsolePixel[] getConsolePixels() {
-        ConsolePixel cPixel = new ConsolePixel(position, 'o');
+        ConsolePixel cPixel = new ConsolePixel(position, size.toString().charAt(0));
         ConsolePixel[] cPixArr = {cPixel};
         return cPixArr;
     }
-    
+
     @Override
     public void onMessage(Message msg) {
         if (msg.isCode("INPUT_ACTION"))
-            switch ((EInputAction) msg.getContext()) {
-                case MOVE_LEFT:
-                    velocity.setX(-1);
-                    velocity.setY(0);
-                    break;
-                case MOVE_UP:
-                    velocity.setX(0);
-                    velocity.setY(-1);
-                    break;
-                case MOVE_RIGHT:
-                    velocity.setX(1);
-                    velocity.setY(0);
-                    break;
-                case MOVE_DOWN:
-                    velocity.setX(0);
-                    velocity.setY(1);
-                    break;
-                default:
-                    break;
-                
-            }
+            handleInput((EInputAction) msg.getContext());
     }
-    
+
+    private void handleInput(EInputAction inputAction) {
+        switch (inputAction) {
+            case MOVE_LEFT:
+                velocity.setX(-1);
+                velocity.setY(0);
+                break;
+            case MOVE_UP:
+                velocity.setX(0);
+                velocity.setY(-1);
+                break;
+            case MOVE_RIGHT:
+                velocity.setX(1);
+                velocity.setY(0);
+                break;
+            case MOVE_DOWN:
+                velocity.setX(0);
+                velocity.setY(1);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void update() {
         position.add(velocity);
