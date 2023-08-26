@@ -14,8 +14,8 @@ public class Scene {
     private HashMap<String, ArrayList<ISimpleCollidable>> colliderTracking = new HashMap<>();
 
     public Scene() {
-        this.sceneObjects.add(new Snake());
-        this.sceneObjects.add(new Food());
+        this.sceneObjects.add(new Snake(this));
+        this.sceneObjects.add(new Food(this));
     }
 
     /**

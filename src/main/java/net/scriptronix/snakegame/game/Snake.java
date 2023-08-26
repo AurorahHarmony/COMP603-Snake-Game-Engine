@@ -7,6 +7,7 @@ import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.rendering.ConsolePixel;
 import net.scriptronix.snakegame.rendering.IConsoleRenderable;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
+import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.SceneObject;
 import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 
@@ -14,25 +15,28 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
  * The snake player class
  */
 public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
+    
     Vector2 velocity = Vector2.zero();
-     public Snake() {
+    
+    public Snake(Scene scene) {
+        super(scene);
         this.init();
     }
-
+    
     private void init() {
         Message.subscribe("INPUT_ACTION", this);
     }
-
+    
     @Override
     public ConsolePixel[] getConsolePixels() {
         ConsolePixel cPixel = new ConsolePixel(position, 'o');
         ConsolePixel[] cPixArr = {cPixel};
         return cPixArr;
     }
-
+    
     @Override
     public void onMessage(Message msg) {
-        if (msg.isCode("INPUT_ACTION")) {
+        if (msg.isCode("INPUT_ACTION"))
             switch ((EInputAction) msg.getContext()) {
                 case MOVE_LEFT:
                     velocity.setX(-1);
@@ -52,17 +56,15 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
                     break;
                 default:
                     break;
-
+                
             }
-
-        }
     }
-
+    
     @Override
     public void update() {
         position.add(velocity);
     }
-
+    
     @Override
     public void onCollision(SimpleCollisionEvent sce) {
     }

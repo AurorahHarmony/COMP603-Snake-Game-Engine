@@ -8,18 +8,25 @@ import net.scriptronix.snakegame.math.Vector2;
 public abstract class SceneObject {
 
     protected Vector2 position;
-/**
- * Creates a new SceneObject at (0,0)
- */
-    public SceneObject() {
-        this(Vector2.zero());
+    protected final Scene scene;
+
+    /**
+     * Creates a new SceneObject at (0,0)
+     *
+     * @param scene A reference to the scene
+     */
+    public SceneObject(Scene scene) {
+        this(scene, Vector2.zero());
     }
 
     /**
      * Creates a new SceneObject at the provided position
+     *
+     * @param scene A reference to the scene
      * @param initPosition The starting position for the SceneObject
      */
-    public SceneObject(Vector2 initPosition) {
+    public SceneObject(Scene scene, Vector2 initPosition) {
+        this.scene = scene;
         this.position = initPosition;
     }
 
