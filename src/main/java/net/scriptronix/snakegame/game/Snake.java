@@ -6,12 +6,14 @@ import net.scriptronix.snakegame.message.IMessageHandler;
 import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.rendering.ConsolePixel;
 import net.scriptronix.snakegame.rendering.IConsoleRenderable;
+import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.SceneObject;
+import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 
 /**
  * The snake player class
  */
-public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler {
+public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
     Vector2 velocity = Vector2.zero();
      public Snake() {
         this.init();
@@ -59,5 +61,9 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     @Override
     public void update() {
         position.add(velocity);
+    }
+
+    @Override
+    public void onCollision(SimpleCollisionEvent sce) {
     }
 }
