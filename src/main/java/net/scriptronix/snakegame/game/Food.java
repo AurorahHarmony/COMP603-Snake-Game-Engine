@@ -14,15 +14,15 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
  * Represents a piece of food that the snake can eat
  */
 public class Food extends SceneObject implements IConsoleRenderable, ISimpleCollidable {
-    
+
     private final char symbol = '@';
     private final Random rand = new Random();
-    
+
     public Food(Scene scene) {
         super(scene);
-        this.position = new Vector2(4, 4);
+        this.teleportToRandomLocation();
     }
-    
+
     @Override
     public ConsolePixel[] getConsolePixels() {
         return new ConsolePixel[]{new ConsolePixel(position, symbol)};
