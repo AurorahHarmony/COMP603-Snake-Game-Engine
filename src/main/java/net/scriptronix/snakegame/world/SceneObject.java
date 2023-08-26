@@ -47,5 +47,17 @@ public abstract class SceneObject {
     protected EngineConfig getEngineConfig() {
         return scene.getEngineInstance().getConfig();
     }
+
+    /**
+     * @return Returns true if this SceneObject is off screen
+     */
+    protected boolean isOffScreen() {
+        int virtualWidth = getEngineConfig().getVirtualWidth();
+        int virtualHeight = getEngineConfig().getVirtualHeight();
+        int x = position.getX();
+        int y = position.getY();
+
+        return x < 0 || x > virtualWidth - 1 || y < 0 || y > virtualHeight - 1;
+    }
 ;
 }
