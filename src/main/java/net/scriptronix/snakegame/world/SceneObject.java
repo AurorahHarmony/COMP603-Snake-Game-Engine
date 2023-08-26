@@ -1,5 +1,6 @@
 package net.scriptronix.snakegame.world;
 
+import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.math.Vector2;
 
 /**
@@ -41,6 +42,10 @@ public abstract class SceneObject {
      * Updates the state of this object. It should be called on every tick.
      */
     public void update() {
+    }
+
+    protected EngineConfig getEngineConfig() {
+        return scene.getEngineInstance().getConfig();
     }
 ;
 }
