@@ -1,6 +1,6 @@
 package net.scriptronix.snakegame.game;
 
-import net.scriptronix.snakegame.EngineConfig;
+import java.util.ArrayList;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.IMessageHandler;
@@ -18,6 +18,7 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
 
     Vector2 velocity = new Vector2(0, -1);
+    ArrayList<Vector2> body; // Head is always the position. Body follows the head.
     Integer size = 0;
 
     public Snake(Scene scene) {
@@ -26,11 +27,10 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     }
 
     private void init() {
-        EngineConfig engineConfig = scene.getEngineInstance().getConfig();
-        int halfEngineWidth = engineConfig.getVirtualWidth() / 2;
-        int halfEngineHeight = engineConfig.getVirtualHeight() / 2;
+        int halfEngineWidth = getEngineConfig().getVirtualWidth() / 2;
+        int halfEngineHeight = getEngineConfig().getVirtualHeight() / 2;
         this.position = new Vector2(halfEngineWidth, halfEngineHeight);
-        
+
         Message.subscribe("INPUT_ACTION", this);
     }
 
@@ -73,6 +73,9 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     @Override
     public void update() {
         position.add(velocity);
+
+        if (this.isOffScreen())
+            System.exit(0);
     }
 
     @Override
