@@ -15,9 +15,10 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
  * The snake player class
  */
 public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
-    
+
     Vector2 velocity = Vector2.zero();
-    
+    Integer size = 0;
+
     public Snake(Scene scene) {
         super(scene);
         this.init();
@@ -67,8 +68,10 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     public void update() {
         position.add(velocity);
     }
-    
+
     @Override
     public void onCollision(SimpleCollisionEvent sce) {
+        if (sce.otherCollidable() instanceof Food)
+            size++;
     }
 }
