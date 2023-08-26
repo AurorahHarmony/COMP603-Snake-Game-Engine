@@ -4,8 +4,8 @@ package net.scriptronix.snakegame.math;
  * Structure for storing Vector2 data
  */
 public class Vector2 {
-    private float x;
-    private float y;
+    private int x;
+    private int y;
     
     /**
      * Creates a Vector2(x = 0, y = 0)
@@ -34,7 +34,7 @@ public class Vector2 {
     /**
      * @param x the x position to set
      */
-    public void setX(float x) {
+    public void setX(int x) {
         this.x = x;
     }
 
@@ -48,7 +48,7 @@ public class Vector2 {
     /**
      * @param y the y position to set
      */
-    public void setY(float y) {
+    public void setY(int y) {
         this.y = y;
     }
     
@@ -76,6 +76,11 @@ public class Vector2 {
     public void copyFrom(Vector2 vector2) {
         this.x = vector2.x;
         this.y = vector2.y;
+    }
+
+    @Override
+    public String toString() {
+        return this.x + "," + this.y;
     }
     
 }
