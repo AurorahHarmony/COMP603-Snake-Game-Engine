@@ -1,6 +1,7 @@
 package net.scriptronix.snakegame.game;
 
 import java.util.Random;
+import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.rendering.ConsolePixel;
 import net.scriptronix.snakegame.rendering.IConsoleRenderable;
@@ -37,8 +38,11 @@ public class Food extends SceneObject implements IConsoleRenderable, ISimpleColl
      * Teleport the food to a new random location on screen
      */
     private void teleportToRandomLocation() {
-        this.position.setX(rand.nextInt(5));
-        this.position.setY(rand.nextInt(5));
+        EngineConfig ec = this.scene.getEngineInstance().getConfig();
+        int playAreaWidth = ec.getVirtualWidth();
+        int playAreaHeight = ec.getVirtualHeight();
+        this.position.setX(rand.nextInt(playAreaWidth + 1));
+        this.position.setY(rand.nextInt(playAreaHeight + 1));
     }
     
 }
