@@ -27,7 +27,7 @@ public class Vector2 {
     /**
      * @return the x position
      */
-    public float getX() {
+    public int getX() {
         return x;
     }
 
@@ -41,7 +41,7 @@ public class Vector2 {
     /**
      * @return the y position
      */
-    public float getY() {
+    public int getY() {
         return y;
     }
 
