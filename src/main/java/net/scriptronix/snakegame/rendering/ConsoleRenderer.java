@@ -72,7 +72,7 @@ public class ConsoleRenderer implements IRenderer {
         Vector2 pixelPos = cPixel.getPos();
         int pX = (int) pixelPos.getX();
         int pY = (int) pixelPos.getY();
-        return pX < 0 || pY < 0 || pX > this.screenWidth || pY > this.screenHeight;
+        return pX < 0 || pY < 0 || pX > this.screenWidth - 1 || pY > this.screenHeight -1 ;
     }
 
     /**
