@@ -3,6 +3,7 @@ package net.scriptronix.snakegame.rendering;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.world.Scene;
 
@@ -17,13 +18,9 @@ public class ConsoleRenderer implements IRenderer {
     private char[][] outputMatrix; // [height][width]
     private StringBuilder outString = new StringBuilder();
 
-    public ConsoleRenderer() {
-        this(30, 10);
-    }
-
-    public ConsoleRenderer(int screenWidth, int screenHeight) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+    public ConsoleRenderer(EngineConfig engingConfig) {
+        this.screenWidth = engingConfig.getVirtualWidth();
+        this.screenHeight = engingConfig.getVirtualHeight();
         this.outerScreenHeight = this.screenHeight + 2;
         this.outerScreenWidth = this.screenWidth + 2;
 

@@ -13,8 +13,9 @@ import net.scriptronix.snakegame.world.Scene;
  * The main game engine class
  */
 public class Engine implements IMessageHandler {
-
+    
     boolean isRunning;
+    EngineConfig engineConfig;
     IRenderer renderer;
     Scene scene;
 
@@ -23,12 +24,16 @@ public class Engine implements IMessageHandler {
      */
     public void start() {
         this.isRunning = false;
-        this.renderer = new ConsoleRenderer();
+        this.engineConfig = new EngineConfig();
+        this.engineConfig.setVirtualWidth(40);
+        this.engineConfig.setVirtualHeight(10);
+        
+        this.renderer = new ConsoleRenderer(this.engineConfig);
         this.scene = new Scene();
-
+        
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
-
+        
         loop();
     }
 
@@ -39,7 +44,7 @@ public class Engine implements IMessageHandler {
         isRunning = true;
         while (isRunning) {
             this.update();
-            render();
+            this.render();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -48,22 +53,21 @@ public class Engine implements IMessageHandler {
             }
         }
     }
-
+    
     private void update() {
         // TODO: Implement delta time for Assessment 2
         MessageBus.update();
         this.scene.update();
     }
-
+    
     private void render() {
         renderer.render(this.scene);
     }
-
+    
     @Override
     public void onMessage(Message msg) {
         if (msg.isCode("INPUT_ACTION") &&
-                (EInputAction) msg.getContext() == EInputAction.QUIT) {
+                (EInputAction) msg.getContext() == EInputAction.QUIT)
             System.exit(0);
-        }
     }
 }
