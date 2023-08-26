@@ -2,6 +2,7 @@ package net.scriptronix.snakegame.world;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.game.Food;
 import net.scriptronix.snakegame.game.Snake;
 
@@ -10,14 +11,24 @@ import net.scriptronix.snakegame.game.Snake;
  */
 public class Scene {
 
+    final private Engine engine;
     private ArrayList<SceneObject> sceneObjects = new ArrayList<>();
     private HashMap<String, ArrayList<ISimpleCollidable>> colliderTracking = new HashMap<>();
 
-    public Scene() {
+    public Scene(Engine engine) {
+        this.engine = engine;
+        
         this.sceneObjects.add(new Snake(this));
         this.sceneObjects.add(new Food(this));
     }
-
+    
+    /**
+     * @return A reference to the Engine instance
+     */
+    public Engine getEngineInstance() {
+        return this.engine;
+    }
+    
     /**
      * @return ArrayList of Scene Objects
      */

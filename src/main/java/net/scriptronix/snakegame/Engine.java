@@ -29,12 +29,19 @@ public class Engine implements IMessageHandler {
         this.engineConfig.setVirtualHeight(10);
         
         this.renderer = new ConsoleRenderer(this.engineConfig);
-        this.scene = new Scene();
+        this.scene = new Scene(this);
         
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
         
         loop();
+    }
+    
+    /**
+     * @return the EngineConfig
+     */
+    public EngineConfig getConfig() {
+        return this.engineConfig;
     }
 
     /**
