@@ -53,7 +53,7 @@ public class Engine implements IMessageHandler {
             this.update();
             this.render();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(850);
             } catch (InterruptedException e) {
                 isRunning = false;
                 e.printStackTrace();
