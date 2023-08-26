@@ -3,6 +3,7 @@ package net.scriptronix.snakegame.game;
 import java.util.Random;
 import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.math.Vector2;
+import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.rendering.ConsolePixel;
 import net.scriptronix.snakegame.rendering.IConsoleRenderable;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
@@ -27,11 +28,13 @@ public class Food extends SceneObject implements IConsoleRenderable, ISimpleColl
     public ConsolePixel[] getConsolePixels() {
         return new ConsolePixel[]{new ConsolePixel(position, symbol)};
     }
-    
+
     @Override
     public void onCollision(SimpleCollisionEvent sce) {
-        if (sce.otherCollidable() instanceof Snake)
+        if (sce.otherCollidable() instanceof Snake) {
+            Message.send("INCREMENT_SCORE", this, null);
             teleportToRandomLocation();
+        }
     }
 
     /**
@@ -44,5 +47,5 @@ public class Food extends SceneObject implements IConsoleRenderable, ISimpleColl
         this.position.setX(rand.nextInt(playAreaWidth + 1));
         this.position.setY(rand.nextInt(playAreaHeight + 1));
     }
-    
+
 }
