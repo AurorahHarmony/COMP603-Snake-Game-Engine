@@ -44,8 +44,8 @@ public class Food extends SceneObject implements IConsoleRenderable, ISimpleColl
         EngineConfig ec = this.scene.getEngineInstance().getConfig();
         int playAreaWidth = ec.getVirtualWidth();
         int playAreaHeight = ec.getVirtualHeight();
-        this.position.setX(rand.nextInt(playAreaWidth + 1));
-        this.position.setY(rand.nextInt(playAreaHeight + 1));
+        this.position.setX(rand.nextInt(playAreaWidth));
+        this.position.setY(rand.nextInt(playAreaHeight));
     }
 
 }
