@@ -97,6 +97,8 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
             lastPosition.copyFrom(currentPosition);
         }
         
+        tailLastPosition.copyFrom(lastPosition);
+        
     }
     
     @Override
