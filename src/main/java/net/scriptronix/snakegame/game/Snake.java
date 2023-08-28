@@ -45,8 +45,8 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     public ConsolePixel[] getConsolePixels() {
         ConsolePixel[] cPixArr = new ConsolePixel[bodyParts.size() + 1];
 
-        ConsolePixel cPixel = new ConsolePixel(position, 'O');
-        cPixArr[0] = cPixel;
+        ConsolePixel headCPixel = new ConsolePixel(position, 'X');
+        cPixArr[0] = headCPixel;
         for (int i = 0; i < bodyParts.size(); i++) {
             cPixArr[i + 1] = new ConsolePixel(bodyParts.get(i), 'O');
         }
