@@ -17,8 +17,9 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
  */
 public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
 
-    final private Vector2 velocity = new Vector2(0, -1);
     final private ArrayList<Vector2> bodyParts = new ArrayList<>(); // Head is always the position. Body follows the head.
+    private EMovementDirection direction = EMovementDirection.UP;
+    private EMovementDirection lastMovedDirection = direction;
     private Vector2 tailLastPosition;
 
     public Snake(Scene scene) {
@@ -62,28 +63,20 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     private void handleInput(EInputAction inputAction) {
         switch (inputAction) {
             case MOVE_LEFT:
-                if (this.velocity.getX() > 0)
-                    return;
-                velocity.setX(-1);
-                velocity.setY(0);
+                if (this.lastMovedDirection != EMovementDirection.RIGHT)
+                    this.direction = EMovementDirection.LEFT;
                 break;
             case MOVE_UP:
-                if (this.velocity.getY() > 0)
-                    return;
-                velocity.setX(0);
-                velocity.setY(-1);
+                if (this.lastMovedDirection != EMovementDirection.DOWN)
+                    this.direction = EMovementDirection.UP;
                 break;
             case MOVE_RIGHT:
-                if (this.velocity.getX() < 0)
-                    return;
-                velocity.setX(1);
-                velocity.setY(0);
+                if (this.lastMovedDirection != EMovementDirection.LEFT)
+                    this.direction = EMovementDirection.RIGHT;
                 break;
             case MOVE_DOWN:
-                if (this.velocity.getY() < 0)
-                    return;
-                velocity.setX(0);
-                velocity.setY(1);
+                if (this.lastMovedDirection != EMovementDirection.UP)
+                    this.direction = EMovementDirection.DOWN;
                 break;
             default:
                 break;
@@ -93,7 +86,8 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     @Override
     public void update() {
         Vector2 lastPosition = Vector2.newFrom(this.position);
-        position.add(velocity);
+        
+        position.add(this.getVelocity());
 
         if (this.isOffScreen())
             System.exit(0);
@@ -106,7 +100,53 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         }
 
         tailLastPosition.copyFrom(lastPosition);
+        
+        if (hasCrashedIntoBody())
+            System.exit(0);
+        
+        this.lastMovedDirection = this.direction;
 
+    }
+    
+    /**
+     * @return the current direction into a velocity Vector2
+     */
+    private Vector2 getVelocity() {
+        Vector2 velocity = new Vector2(0, -1); // Upwards by default
+    switch (this.direction) {
+            case LEFT:
+                velocity.setX(-1);
+                velocity.setY(0);
+                break;
+            case UP:
+                velocity.setX(0);
+                velocity.setY(-1);
+                break;
+            case RIGHT:
+                velocity.setX(1);
+                velocity.setY(0);
+                break;
+            case DOWN:
+                velocity.setX(0);
+                velocity.setY(1);
+                break;
+            default:
+                break;
+        }
+    return velocity;
+    }
+
+    /**
+     * Checks to see if the head of the snake is overlapping the body
+     *
+     * @return true if the head overlaps any part of the body
+     */
+    private boolean hasCrashedIntoBody() {
+        for (int i = 0; i < this.bodyParts.size(); i++) { // - 1 as the tail will be out of the way by time the next frame renders
+            if (this.position.equals(this.bodyParts.get(i)))
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -114,4 +154,11 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         if (sce.otherCollidable() instanceof Food)
             bodyParts.add(Vector2.newFrom(this.tailLastPosition));
     }
+    
+    private enum EMovementDirection {
+        LEFT,
+        UP,
+        RIGHT,
+        DOWN,
+    };
 }
