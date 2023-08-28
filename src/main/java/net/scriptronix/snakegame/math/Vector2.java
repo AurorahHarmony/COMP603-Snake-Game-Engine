@@ -83,4 +83,8 @@ public class Vector2 {
         return this.x + "," + this.y;
     }
     
+    public static Vector2 newFrom(Vector2 thatVector2) {
+        return new Vector2(thatVector2.getX(), thatVector2.getY());
+    }
+    
 }
