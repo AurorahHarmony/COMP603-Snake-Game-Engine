@@ -1,5 +1,6 @@
 package net.scriptronix.snakegame;
 
+import net.scriptronix.snakegame.game.GameScene;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.input.InputManager;
 import net.scriptronix.snakegame.message.IMessageHandler;
@@ -30,7 +31,7 @@ public class Engine implements IMessageHandler {
         this.engineConfig.setTickDuration(300);
         
         this.renderer = new ConsoleRenderer(this.engineConfig);
-        this.scene = new Scene(this);
+        this.scene = new GameScene(this);
         
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
