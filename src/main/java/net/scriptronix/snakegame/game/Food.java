@@ -2,7 +2,6 @@ package net.scriptronix.snakegame.game;
 
 import java.util.Random;
 import net.scriptronix.snakegame.EngineConfig;
-import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.rendering.ConsolePixel;
 import net.scriptronix.snakegame.rendering.IConsoleRenderable;
@@ -16,7 +15,7 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
  */
 public class Food extends SceneObject implements IConsoleRenderable, ISimpleCollidable {
 
-    private final char symbol = '@';
+    private final char symbol = '%';
     private final Random rand = new Random();
 
     public Food(Scene scene) {
