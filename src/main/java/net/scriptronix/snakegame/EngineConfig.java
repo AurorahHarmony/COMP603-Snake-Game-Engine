@@ -13,6 +13,11 @@ public class EngineConfig {
      * The height of the view port in engine units
      */
     private int virtualHeight = 0;
+    
+    /**
+     * The duration between each tick in milliseconds
+     */
+    private int tickDuration = 500;
 
     /**
      * @return the virtualWidth
@@ -40,6 +45,22 @@ public class EngineConfig {
      */
     public void setVirtualHeight(int virtualHeight) {
         this.virtualHeight = virtualHeight;
+    }
+
+    /**
+     * @return the tickDuration
+     */
+    public int getTickDuration() {
+        return tickDuration;
+    }
+
+    /**
+     * Sets the duration of a single tick in milliseconds. 
+     * A value of 1000 would make the engine run at 1fps
+     * @param tickDuration the tickDuration to set in milliseconds
+     */
+    public void setTickDuration(int tickDuration) {
+        this.tickDuration = tickDuration;
     }
 
 }

@@ -27,6 +27,7 @@ public class Engine implements IMessageHandler {
         this.engineConfig = new EngineConfig();
         this.engineConfig.setVirtualWidth(40);
         this.engineConfig.setVirtualHeight(10);
+        this.engineConfig.setTickDuration(300);
         
         this.renderer = new ConsoleRenderer(this.engineConfig);
         this.scene = new Scene(this);
@@ -53,7 +54,7 @@ public class Engine implements IMessageHandler {
             this.update();
             this.render();
             try {
-                Thread.sleep(850);
+                Thread.sleep(this.engineConfig.getTickDuration());
             } catch (InterruptedException e) {
                 isRunning = false;
                 e.printStackTrace();
