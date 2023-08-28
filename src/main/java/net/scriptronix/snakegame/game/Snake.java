@@ -34,8 +34,8 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         Message.subscribe("INPUT_ACTION", this);
 
         // Add some starting parts to the snake
-        this.bodyParts.add(new Vector2(this.position.getX(), this.position.getY() - 1));
-        this.bodyParts.add(new Vector2(this.position.getX(), this.position.getY() - 2));
+        this.bodyParts.add(new Vector2(this.position.getX(), this.position.getY() + 1));
+        this.bodyParts.add(new Vector2(this.position.getX(), this.position.getY() + 2));
         
         this.tailLastPosition = Vector2.newFrom(this.bodyParts.get(this.bodyParts.size() - 1));
     }
