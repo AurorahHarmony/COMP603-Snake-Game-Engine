@@ -8,7 +8,7 @@ import net.scriptronix.snakegame.assets.KeyValueFileLoader;
  */
 public class ScoreBoard {
 
-    final private static String SCOREBOARD_SAVE_LOCATION = "src/main/java/net/scriptronix/snakegame/game/scoreboard.txt";
+    final private static String SCOREBOARD_SAVE_LOCATION = "./scoreboard.txt";
 
     final private HashMap<String, String> lastSave;
     private int lastScore;

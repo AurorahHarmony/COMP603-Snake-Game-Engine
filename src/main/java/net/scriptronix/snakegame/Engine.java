@@ -19,7 +19,7 @@ import net.scriptronix.snakegame.world.SceneFactory;
  */
 public class Engine implements IMessageHandler {
     
-    public static final String ENGINE_CONFIG = "src/main/java/net/scriptronix/snakegame/engine.weconf";
+    public static final String ENGINE_CONFIG = "./engine.weconf";
 
     private static Engine engineInstance;
 
