@@ -22,6 +22,12 @@ public class MainMenu extends MenuObject {
                     Engine.getInstance().loadScene("net.scriptronix.snakegame.game.GameScene");
                 }
             },
+            // Options
+            new MenuItem("Options") {
+                public void action() {
+                    Engine.getInstance().loadScene("net.scriptronix.snakegame.game.OptionsScene");
+                }
+            },
             // Quit the game
             new MenuObject.MenuItem("Quit") {
                 public void action() {
