@@ -46,6 +46,14 @@ public class Message {
     }
 
     /**
+     * Sends a message through the message bus without a context.
+     * @param code
+     * @param sender
+     */
+    public static void send(String code, Object sender) {
+        MessageBus.post(new Message(code, sender, null));
+    }
+    /**
      * Sends a message through the message bus.
      * @param code
      * @param sender
