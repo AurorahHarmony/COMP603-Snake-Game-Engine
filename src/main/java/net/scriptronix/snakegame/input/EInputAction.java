@@ -9,4 +9,5 @@ public enum EInputAction {
     MOVE_RIGHT,
     MOVE_DOWN,
     QUIT,
+    SELECT,
 }

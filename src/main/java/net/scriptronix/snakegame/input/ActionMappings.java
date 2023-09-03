@@ -14,6 +14,7 @@ public class ActionMappings {
         put(NativeKeyEvent.VC_D, EInputAction.MOVE_RIGHT);
         put(NativeKeyEvent.VC_S, EInputAction.MOVE_DOWN);
         put(NativeKeyEvent.VC_ESCAPE, EInputAction.QUIT);
+        put(NativeKeyEvent.VC_ENTER, EInputAction.SELECT);
     }};
 
     public static EInputAction getAction(int keyCode) {
