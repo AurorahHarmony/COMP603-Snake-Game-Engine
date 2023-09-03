@@ -13,7 +13,6 @@ public class Scene {
 
     final private Engine engine;
     protected ArrayList<SceneObject> sceneObjects = new ArrayList<>();
-    private HashMap<String, ArrayList<ISimpleCollidable>> colliderTracking = new HashMap<>();
 
     public Scene(Engine engine) {
         this.engine = engine;
@@ -46,41 +45,6 @@ public class Scene {
      * Run the update function on each object in the scene
      */
     public void update() {
-        colliderTracking.clear();
-
-        for (SceneObject obj : this.sceneObjects) {
-            obj.update();
-
-            if (obj instanceof ISimpleCollidable) // Generates a hashmap of collisions relevant to the Object's locations
-                colliderTracking.computeIfAbsent(obj.getPosition().toString(),
-                        k -> new ArrayList<ISimpleCollidable>())
-                        .add((ISimpleCollidable) obj);
-
-        }
-
-        this.broadCastCollisions();
-    }
-
-    /**
-     * Runs the onCollision function in any objects that are experiencing a
-     * collision.
-     */
-    private void broadCastCollisions() {
-        for (HashMap.Entry<String, ArrayList<ISimpleCollidable>> entry : colliderTracking.entrySet()) {
-            ArrayList<ISimpleCollidable> objArr = entry.getValue();
-
-            if (objArr.size() < 2)
-                continue;
-
-            for (int i = 0; i < objArr.size(); i++) {
-                for (int j = 0; j < objArr.size(); j++) {
-                    if (i == j)
-                        continue;
-                    objArr.get(i).onCollision(new SimpleCollisionEvent(objArr.get(j)));
-                }
-            }
-        }
-
     }
 
 }
