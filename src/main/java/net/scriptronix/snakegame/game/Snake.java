@@ -1,6 +1,7 @@
 package net.scriptronix.snakegame.game;
 
 import java.util.ArrayList;
+import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.IMessageHandler;
@@ -17,6 +18,7 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
  */
 public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
 
+    final private int INIT_SNAKE_SIZE = 2;
     final private ArrayList<Vector2> bodyParts = new ArrayList<>(); // Head is always the position. Body follows the head.
     private EMovementDirection direction = EMovementDirection.UP;
     private EMovementDirection lastMovedDirection = direction;
@@ -35,8 +37,9 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         Message.subscribe("INPUT_ACTION", this);
 
         // Add some starting parts to the snake
-        this.bodyParts.add(new Vector2(this.position.getX(), this.position.getY() + 1));
-        this.bodyParts.add(new Vector2(this.position.getX(), this.position.getY() + 2));
+        for (int i = 1; i <= INIT_SNAKE_SIZE; i++) {
+            this.bodyParts.add(new Vector2(this.position.getX(), this.position.getY() + i));
+        }
 
         this.tailLastPosition = Vector2.newFrom(this.bodyParts.get(this.bodyParts.size() - 1));
     }
@@ -90,7 +93,7 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         position.add(this.getVelocity());
 
         if (this.isOffScreen())
-            System.exit(0);
+            this.triggerGameOver();
 
         Vector2 currentPosition = Vector2.zero();
         for (Vector2 bodyPart : this.bodyParts) {
@@ -102,7 +105,7 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         tailLastPosition.copyFrom(lastPosition);
 
         if (hasCrashedIntoBody())
-            System.exit(0);
+            this.triggerGameOver();
 
         this.lastMovedDirection = this.direction;
 
@@ -134,6 +137,14 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
                 break;
         }
         return velocity;
+    }
+
+    /**
+     * Triggers the GameOver condition
+     */
+    private void triggerGameOver() {
+        ((GameScene) this.scene).gameOver(this.bodyParts.size() - INIT_SNAKE_SIZE);
+
     }
 
     /**

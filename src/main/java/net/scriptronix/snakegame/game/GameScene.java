@@ -6,6 +6,7 @@ import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.SceneObject;
 import net.scriptronix.snakegame.world.SimpleCollisionEvent;
+import net.scriptronix.snakegame.world.TextObject;
 
 /**
  * The main game scene
@@ -13,21 +14,36 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 public class GameScene extends Scene {
 
     private final HashMap<String, ArrayList<ISimpleCollidable>> colliderTracking = new HashMap<>();
+    private boolean gameActive;
 
     public GameScene() {
         this.spawnObject(new Snake(this));
         this.spawnObject(new Food(this));
+        this.gameActive = true;
+    }
+
+    public void gameOver(int score) {
+        this.gameActive = false;
+        this.sceneObjects.clear();
+
+        TextObject testObject = new TextObject(this, "You Scored: " + Integer.toString(score));
+        this.spawnObject(testObject);
+        MainMenuButton mainMenuButton = new MainMenuButton(this);
+        mainMenuButton.getPosition().setY(2);
+        this.spawnObject(mainMenuButton);
     }
 
     @Override
     public void update() {
 
         super.update();
-
         colliderTracking.clear();
 
         for (SceneObject obj : this.sceneObjects) {
             obj.update();
+
+            if (!gameActive) // No need to update the collisions anymore.
+                return;
 
             if (obj instanceof ISimpleCollidable) // Generates a hashmap of collisions relevant to the Object's locations
                 colliderTracking.computeIfAbsent(obj.getPosition().toString(),
