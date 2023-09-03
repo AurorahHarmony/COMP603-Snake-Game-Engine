@@ -63,6 +63,17 @@ public class Vector2 {
         this.x += vec.x;
         this.y += vec.y;
     }
+    
+    /**
+     * Add X and Y values to this Vector2
+     *
+     * @param x
+     * @param y
+     */
+    public void add(int x, int y) {
+        this.x += x;
+        this.y += y;
+    }
 
     /**
      * Creates a new zero Vector2 (0,0)
