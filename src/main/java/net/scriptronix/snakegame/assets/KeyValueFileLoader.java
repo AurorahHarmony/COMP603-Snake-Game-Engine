@@ -38,14 +38,12 @@ public class KeyValueFileLoader {
             }
         } catch (IOException ex) {
             Logger.getLogger(KeyValueFileLoader.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         } finally {
             if (br != null)
                 try {
                 br.close();
             } catch (IOException ex) {
                 Logger.getLogger(KeyValueFileLoader.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
             }
 
         }

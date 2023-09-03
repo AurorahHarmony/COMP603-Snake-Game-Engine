@@ -22,14 +22,33 @@ public class GameScene extends Scene {
         this.gameActive = true;
     }
 
+    /**
+     * Show the gameOver screen
+     * @param score 
+     */
     public void gameOver(int score) {
         this.gameActive = false;
         this.sceneObjects.clear();
+        
+        ScoreBoard scoreBoard = new ScoreBoard();
+        
+        TextObject scoreText = new TextObject(this, "You Scored: " + Integer.toString(score));
+        this.spawnObject(scoreText);
+        
+        TextObject lastScoreText = new TextObject(this, "Your last Score: " +  
+                Integer.toString(scoreBoard.getLastScore()));
+        lastScoreText.getPosition().setY(1);
+        this.spawnObject(lastScoreText);
+        
+        scoreBoard.addNewScore(score);
+        
+        TextObject highScoreText = new TextObject(this, "Highest Score: " +  
+                Integer.toString(scoreBoard.getHighScore()));
+        highScoreText.getPosition().setY(2);
+        this.spawnObject(highScoreText);
 
-        TextObject testObject = new TextObject(this, "You Scored: " + Integer.toString(score));
-        this.spawnObject(testObject);
         MainMenuButton mainMenuButton = new MainMenuButton(this);
-        mainMenuButton.getPosition().setY(2);
+        mainMenuButton.getPosition().setY(4);
         this.spawnObject(mainMenuButton);
     }
 
