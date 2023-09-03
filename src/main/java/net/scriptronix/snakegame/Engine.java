@@ -3,7 +3,7 @@ package net.scriptronix.snakegame;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.scriptronix.snakegame.game.GameScene;
+import net.scriptronix.snakegame.assets.EngineConfigLoader;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.input.InputManager;
 import net.scriptronix.snakegame.message.IMessageHandler;
@@ -41,17 +41,12 @@ public class Engine implements IMessageHandler {
 
     private void init() {
         this.isRunning = false;
-        this.engineConfig = new EngineConfig();
-        this.engineConfig.setVirtualWidth(40);
-        this.engineConfig.setVirtualHeight(10);
-        this.engineConfig.setTickDuration(300);
-
+        
+        this.engineConfig = EngineConfigLoader.load("src/main/java/net/scriptronix/snakegame/engine.weconf");
         this.renderer = new ConsoleRenderer(this.engineConfig);
 
         this.loadScene("net.scriptronix.snakegame.game.MainMenuScene");
-//        loadScene("net.scriptronix.snakegame.game.GameScene");
 
-//        this.scene = new GameScene(this);
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
 
