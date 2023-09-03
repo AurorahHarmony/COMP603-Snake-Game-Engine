@@ -1,23 +1,14 @@
 package net.scriptronix.snakegame.world;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import net.scriptronix.snakegame.Engine;
-import net.scriptronix.snakegame.game.Food;
-import net.scriptronix.snakegame.game.Snake;
 
 /**
  * Container for all objects within a scene
  */
 public class Scene {
 
-    final private Engine engine;
     protected ArrayList<SceneObject> sceneObjects = new ArrayList<>();
-
-    public Scene(Engine engine) {
-        this.engine = engine;
-        
-    }
     
     /**
      * Spawns a new object in the scene
@@ -31,7 +22,7 @@ public class Scene {
      * @return A reference to the Engine instance
      */
     public Engine getEngineInstance() {
-        return this.engine;
+        return Engine.getInstance();
     }
     
     /**

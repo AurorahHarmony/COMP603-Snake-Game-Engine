@@ -10,14 +10,14 @@ import net.scriptronix.snakegame.Engine;
  */
 public class SceneFactory {
 
-    public static Scene createScene(String className, Engine engine) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalArgumentException, IllegalAccessException {
+    public static Scene createScene(String className) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalArgumentException, IllegalAccessException {
         Class<?> sceneClass = Class.forName(className);
 
         if (!Scene.class.isAssignableFrom(sceneClass))
             throw new IllegalArgumentException("The provided class does not extend Scene.");
 
-        Constructor<?> ctor = sceneClass.getConstructor(Engine.class);
-        return (Scene) ctor.newInstance(engine);
+        Constructor<?> ctor = sceneClass.getConstructor();
+        return (Scene) ctor.newInstance();
 
     }
 }

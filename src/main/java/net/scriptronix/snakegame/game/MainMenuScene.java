@@ -1,6 +1,5 @@
 package net.scriptronix.snakegame.game;
 
-import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.world.Scene;
 
 /**
@@ -8,11 +7,8 @@ import net.scriptronix.snakegame.world.Scene;
  */
 public class MainMenuScene extends Scene {
 
-    public MainMenuScene(Engine engine) {
-        super(engine);
-        
+    public MainMenuScene() {
         this.spawnObject(new MainMenu(this));
-        
     }
     
 }

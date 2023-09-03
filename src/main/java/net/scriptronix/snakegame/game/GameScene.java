@@ -2,7 +2,6 @@ package net.scriptronix.snakegame.game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.SceneObject;
@@ -15,9 +14,7 @@ public class GameScene extends Scene {
 
     private final HashMap<String, ArrayList<ISimpleCollidable>> colliderTracking = new HashMap<>();
 
-    public GameScene(Engine engine) {
-        super(engine);
-        
+    public GameScene() {
         this.spawnObject(new Snake(this));
         this.spawnObject(new Food(this));
     }

@@ -1,5 +1,6 @@
 package net.scriptronix.snakegame.world;
 
+import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.math.Vector2;
 
@@ -45,7 +46,7 @@ public abstract class SceneObject {
     }
 
     protected EngineConfig getEngineConfig() {
-        return scene.getEngineInstance().getConfig();
+        return Engine.getInstance().getConfig();
     }
 
     /**

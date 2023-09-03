@@ -111,7 +111,7 @@ public class Engine implements IMessageHandler {
     public void loadScene(String sceneClassName) {
         Scene newScene;
         try {
-            newScene = SceneFactory.createScene(sceneClassName, this);
+            newScene = SceneFactory.createScene(sceneClassName);
             this.scene = null;
             this.scene = newScene;
         } catch (ClassNotFoundException | IllegalArgumentException | InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
