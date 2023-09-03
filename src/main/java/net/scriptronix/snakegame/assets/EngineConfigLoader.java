@@ -14,12 +14,6 @@ import net.scriptronix.snakegame.EngineConfig;
  */
 public class EngineConfigLoader {
 
-    public static void main(String[] args) {
-        EngineConfig ec = EngineConfigLoader.load("src/main/java/net/scriptronix/snakegame/engine.weconf");
-        
-        System.out.println("VWidth: " + ec.getVirtualWidth() );
-    }
-
     public static EngineConfig load(String configPath) {
         BufferedReader br = null;
         HashMap<String, String> options = new HashMap<>();
