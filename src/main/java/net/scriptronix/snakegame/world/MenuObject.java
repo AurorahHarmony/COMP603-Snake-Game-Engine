@@ -109,7 +109,7 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
      * Structure allowing for MenuItem. Allows custom callbacks to be provided
      * as the action(), which will be triggered when this MenuItem is selected.
      */
-    abstract public class MenuItem {
+    abstract static public class MenuItem {
 
         private final String name;
 
@@ -122,5 +122,14 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
         }
 
         public abstract void action();
+        
+    }
+    
+    public static MenuItem createSpacerMenuItem() {
+        return new MenuItem("") {
+            @Override
+            public void action() {
+            }
+        };
     }
 }
