@@ -1,2 +1,0 @@
-highScore=4
-lastScore=4
