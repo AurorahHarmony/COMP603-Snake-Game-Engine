@@ -3,12 +3,13 @@ package net.scriptronix.snakegame;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import net.scriptronix.snakegame.message.Message;
 
 /**
  * A wrapper for engine configuration
  */
 public class EngineConfig {
-    
+
     /**
      * The width of the view port in engine units
      */
@@ -35,6 +36,7 @@ public class EngineConfig {
      */
     public void setVirtualWidth(int virtualWidth) {
         this.virtualWidth = virtualWidth;
+        Message.send("SCREEN_RESIZED", this);
     }
 
     /**
@@ -49,6 +51,7 @@ public class EngineConfig {
      */
     public void setVirtualHeight(int virtualHeight) {
         this.virtualHeight = virtualHeight;
+        Message.send("SCREEN_RESIZED", this);
     }
 
     /**
@@ -67,29 +70,30 @@ public class EngineConfig {
     public void setTickDuration(int tickDuration) {
         this.tickDuration = tickDuration;
     }
-    
+
     /**
      * Generates an EngineConfig from a HashMap
+     *
      * @param options
-     * @return 
+     * @return
      */
     public static EngineConfig fromHashMap(HashMap<String, String> options) {
         EngineConfig ec = new EngineConfig();
-        
-        for(Map.Entry<String, String> entry : options.entrySet()) {
+
+        for (Map.Entry<String, String> entry : options.entrySet()) {
             String key = entry.getKey();
             String methodName = "set" + key;
-            
+
             try {
                 // TODO: Add support for string values
                 Method method = ec.getClass().getMethod(methodName, int.class);
-                
+
                 method.invoke(ec, Integer.parseInt(entry.getValue()));
             } catch (Exception e) {
                 // We don't care if this fails. It just means that the option doesn't exist.
             }
         }
-        
+
         return ec;
     }
 

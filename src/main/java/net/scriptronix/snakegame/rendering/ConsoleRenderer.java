@@ -3,18 +3,21 @@ package net.scriptronix.snakegame.rendering;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.math.Vector2;
+import net.scriptronix.snakegame.message.IMessageHandler;
+import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.world.Scene;
 
 /**
  * Renders the game to a console
  */
-public class ConsoleRenderer implements IRenderer {
+public class ConsoleRenderer implements IRenderer, IMessageHandler {
 
     private Robot robot;
-    private final int screenWidth, screenHeight;
-    private final int outerScreenWidth, outerScreenHeight;
+    private int screenWidth, screenHeight;
+    private int outerScreenWidth, outerScreenHeight;
     private char[][] outputMatrix; // [height][width]
     private StringBuilder outString = new StringBuilder();
 
@@ -23,6 +26,8 @@ public class ConsoleRenderer implements IRenderer {
         this.screenHeight = engingConfig.getVirtualHeight();
         this.outerScreenHeight = this.screenHeight + 2;
         this.outerScreenWidth = this.screenWidth + 2;
+
+        Message.subscribe("SCREEN_RESIZED", this);
 
         this.initScreen();
 
@@ -72,7 +77,7 @@ public class ConsoleRenderer implements IRenderer {
         Vector2 pixelPos = cPixel.getPos();
         int pX = (int) pixelPos.getX();
         int pY = (int) pixelPos.getY();
-        return pX < 0 || pY < 0 || pX > this.screenWidth - 1 || pY > this.screenHeight -1 ;
+        return pX < 0 || pY < 0 || pX > this.screenWidth - 1 || pY > this.screenHeight - 1;
     }
 
     /**
@@ -122,6 +127,18 @@ public class ConsoleRenderer implements IRenderer {
             for (int j = 1; j < this.screenWidth + 1; j++) {
                 this.outputMatrix[i][j] = ' ';
             }
+        }
+    }
+
+    @Override
+    public void onMessage(Message msg) {
+        if (msg.isCode("SCREEN_RESIZED")) {
+            this.screenWidth = Engine.getInstance().getConfig().getVirtualWidth();
+            this.screenHeight = Engine.getInstance().getConfig().getVirtualHeight();
+            this.outerScreenHeight = this.screenHeight + 2;
+            this.outerScreenWidth = this.screenWidth + 2;
+            
+            this.initScreen();
         }
     }
 

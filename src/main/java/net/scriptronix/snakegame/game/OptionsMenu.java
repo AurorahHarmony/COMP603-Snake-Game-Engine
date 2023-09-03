@@ -31,14 +31,13 @@ public class OptionsMenu extends MenuObject {
                 public void action() {
                     EngineConfig ec = Engine.getInstance().getConfig();
                     ec.setVirtualWidth(ec.getVirtualWidth() + 1);
-
                 }
             },
             // Decrease Screen Width
             new MenuObject.MenuItem("Decrease Screen Width") {
                 public void action() {
                     EngineConfig ec = Engine.getInstance().getConfig();
-                    ec.setVirtualWidth(ec.getVirtualWidth() + 1);
+                    ec.setVirtualWidth(ec.getVirtualWidth() - 1);
                 }
             }, // TODO: Add more options
         };
