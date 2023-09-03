@@ -13,11 +13,11 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
  */
 public class GameScene extends Scene {
 
-    private HashMap<String, ArrayList<ISimpleCollidable>> colliderTracking = new HashMap<>();
+    private final HashMap<String, ArrayList<ISimpleCollidable>> colliderTracking = new HashMap<>();
 
     public GameScene(Engine engine) {
         super(engine);
-
+        
         this.spawnObject(new Snake(this));
         this.spawnObject(new Food(this));
     }

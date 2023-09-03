@@ -19,6 +19,8 @@ import net.scriptronix.snakegame.world.SceneFactory;
  */
 public class Engine implements IMessageHandler {
 
+    private static Engine engineInstance;
+
     boolean isRunning;
     EngineConfig engineConfig;
     IRenderer renderer;
@@ -27,7 +29,17 @@ public class Engine implements IMessageHandler {
     /**
      * Stands up the engine and starts the game loop.
      */
-    public void start() {
+    public static void start() {
+        engineInstance = new Engine();
+        engineInstance.init();
+
+    }
+
+    private Engine() { // Singleton
+
+    }
+
+    private void init() {
         this.isRunning = false;
         this.engineConfig = new EngineConfig();
         this.engineConfig.setVirtualWidth(40);
@@ -36,13 +48,18 @@ public class Engine implements IMessageHandler {
 
         this.renderer = new ConsoleRenderer(this.engineConfig);
 
-        this.loadScene("net.scriptronix.snakegame.game.GameScene");
-//        this.scene = new GameScene(this);
+        this.loadScene("net.scriptronix.snakegame.game.MainMenuScene");
+//        loadScene("net.scriptronix.snakegame.game.GameScene");
 
+//        this.scene = new GameScene(this);
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
 
         loop();
+    }
+
+    public static Engine getInstance() {
+        return engineInstance;
     }
 
     /**
@@ -95,6 +112,7 @@ public class Engine implements IMessageHandler {
         Scene newScene;
         try {
             newScene = SceneFactory.createScene(sceneClassName, this);
+            this.scene = null;
             this.scene = newScene;
         } catch (ClassNotFoundException | IllegalArgumentException | InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
             // An invalid class name was provided. This is a fatal exception.

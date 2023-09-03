@@ -2,6 +2,7 @@ package net.scriptronix.snakegame.game;
 
 import java.awt.MenuItem;
 import java.util.ArrayList;
+import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.IMessageHandler;
@@ -27,7 +28,7 @@ public class MainMenu extends SceneObject implements IConsoleRenderable, IMessag
         this.menuItems = new MenuItem[]{
             new MenuItem("Start") {
                 public void action() {
-//                    Engine.loadScene("net.scriptronix.snakegame.game.GameScene");
+                    Engine.getInstance().loadScene("net.scriptronix.snakegame.game.GameScene");
                 }
             },
             new MenuItem("Quit") {
@@ -102,6 +103,9 @@ public class MainMenu extends SceneObject implements IConsoleRenderable, IMessag
         this.selectedMenuItem--;
     }
 
+    /**
+     * Represents a single item in the menu.
+     */
     abstract class MenuItem {
 
         private String name;
