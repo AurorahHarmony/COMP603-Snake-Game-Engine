@@ -35,7 +35,7 @@ public class EngineConfig {
      * @param virtualWidth the virtualWidth to set
      */
     public void setVirtualWidth(int virtualWidth) {
-        this.virtualWidth = virtualWidth;
+        this.virtualWidth = Math.max(virtualWidth, 20); // Set a min of 20
         Message.send("SCREEN_RESIZED", this);
     }
 
@@ -70,7 +70,20 @@ public class EngineConfig {
     public void setTickDuration(int tickDuration) {
         this.tickDuration = tickDuration;
     }
-
+    
+    /**
+     * @return EngineConfig in HashMap form
+     */
+    public HashMap<String, String> toHashMap() {
+        HashMap<String, String> ec = new HashMap<>();
+        
+        ec.put("VirtualWidth", Integer.toString(this.virtualWidth));
+        ec.put("virtualHeight", Integer.toString(this.virtualHeight));
+        ec.put("tickDuration", Integer.toString(this.tickDuration));
+                
+        return ec;
+    }
+    
     /**
      * Generates an EngineConfig from a HashMap
      *
@@ -96,5 +109,5 @@ public class EngineConfig {
 
         return ec;
     }
-
+    
 }

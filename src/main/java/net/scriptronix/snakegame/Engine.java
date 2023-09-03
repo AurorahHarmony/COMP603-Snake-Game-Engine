@@ -18,6 +18,8 @@ import net.scriptronix.snakegame.world.SceneFactory;
  * The main game engine class
  */
 public class Engine implements IMessageHandler {
+    
+    public static final String ENGINE_CONFIG = "src/main/java/net/scriptronix/snakegame/engine.weconf";
 
     private static Engine engineInstance;
 
@@ -42,7 +44,7 @@ public class Engine implements IMessageHandler {
     private void init() {
         this.isRunning = false;
 
-        this.engineConfig = EngineConfigLoader.load("src/main/java/net/scriptronix/snakegame/engine.weconf");
+        this.engineConfig = EngineConfigLoader.load(ENGINE_CONFIG);
         this.renderer = new ConsoleRenderer(this.engineConfig);
 
         this.loadScene("net.scriptronix.snakegame.game.MainMenuScene");
@@ -62,6 +64,13 @@ public class Engine implements IMessageHandler {
      */
     public EngineConfig getConfig() {
         return this.engineConfig;
+    }
+    
+    /**
+     * 
+     */
+    public void saveConfig() {
+        EngineConfigLoader.save(this.engineConfig, ENGINE_CONFIG);
     }
 
     /**
