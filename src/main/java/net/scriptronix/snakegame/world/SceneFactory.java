@@ -2,7 +2,6 @@ package net.scriptronix.snakegame.world;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import net.scriptronix.snakegame.Engine;
 
 /**
  * Dynamically creates scene instances based on the fully qualified class name,

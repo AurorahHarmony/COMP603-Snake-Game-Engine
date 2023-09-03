@@ -1,6 +1,5 @@
 package net.scriptronix.snakegame.game;
 
-import java.awt.MenuItem;
 import java.util.ArrayList;
 import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.input.EInputAction;
