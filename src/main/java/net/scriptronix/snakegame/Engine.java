@@ -41,7 +41,7 @@ public class Engine implements IMessageHandler {
 
     private void init() {
         this.isRunning = false;
-        
+
         this.engineConfig = EngineConfigLoader.load("src/main/java/net/scriptronix/snakegame/engine.weconf");
         this.renderer = new ConsoleRenderer(this.engineConfig);
 
@@ -107,7 +107,10 @@ public class Engine implements IMessageHandler {
         Scene newScene;
         try {
             newScene = SceneFactory.createScene(sceneClassName);
-            this.scene = null;
+            if (this.scene != null) {
+                this.scene.destroy();
+                this.scene = null;
+            }
             this.scene = newScene;
         } catch (ClassNotFoundException | IllegalArgumentException | InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
             // An invalid class name was provided. This is a fatal exception.

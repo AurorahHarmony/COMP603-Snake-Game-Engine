@@ -60,5 +60,9 @@ public abstract class SceneObject {
 
         return x < 0 || x > virtualWidth - 1 || y < 0 || y > virtualHeight - 1;
     }
-;
+    
+    /**
+     * Cleans up this object.
+     */
+    abstract public void destroy();
 }

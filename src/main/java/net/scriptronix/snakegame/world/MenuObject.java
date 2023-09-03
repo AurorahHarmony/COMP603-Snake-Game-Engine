@@ -132,4 +132,10 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
             }
         };
     }
+
+    @Override
+    public void destroy() {
+                Message.unsubscribe("INPUT_ACTION", this);
+    }
+    
 }

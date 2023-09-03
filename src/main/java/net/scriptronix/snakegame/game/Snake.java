@@ -86,7 +86,7 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     @Override
     public void update() {
         Vector2 lastPosition = Vector2.newFrom(this.position);
-        
+
         position.add(this.getVelocity());
 
         if (this.isOffScreen())
@@ -100,20 +100,20 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         }
 
         tailLastPosition.copyFrom(lastPosition);
-        
+
         if (hasCrashedIntoBody())
             System.exit(0);
-        
+
         this.lastMovedDirection = this.direction;
 
     }
-    
+
     /**
      * @return the current direction into a velocity Vector2
      */
     private Vector2 getVelocity() {
         Vector2 velocity = new Vector2(0, -1); // Upwards by default
-    switch (this.direction) {
+        switch (this.direction) {
             case LEFT:
                 velocity.setX(-1);
                 velocity.setY(0);
@@ -133,7 +133,7 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
             default:
                 break;
         }
-    return velocity;
+        return velocity;
     }
 
     /**
@@ -154,7 +154,12 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         if (sce.otherCollidable() instanceof Food)
             bodyParts.add(Vector2.newFrom(this.tailLastPosition));
     }
-    
+
+    @Override
+    public void destroy() {
+        Message.unsubscribe("INPUT_ACTION", this);
+    }
+
     private enum EMovementDirection {
         LEFT,
         UP,

@@ -47,4 +47,8 @@ public class Food extends SceneObject implements IConsoleRenderable, ISimpleColl
         this.position.setY(rand.nextInt(playAreaHeight));
     }
 
+    @Override
+    public void destroy() {
+    }
+
 }

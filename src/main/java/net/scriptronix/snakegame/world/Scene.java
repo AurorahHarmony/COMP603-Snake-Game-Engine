@@ -37,5 +37,13 @@ public class Scene {
      */
     public void update() {
     }
-
+    
+    /**
+     * Cleanup the scene, before it is unloaded by the engine.
+     */
+    public void destroy() {
+        for (SceneObject so : this.sceneObjects) {
+            so.destroy();
+        }
+    }
 }
