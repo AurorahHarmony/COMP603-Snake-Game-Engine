@@ -13,7 +13,6 @@ import net.scriptronix.snakegame.message.Message;
  * inputs.
  */
 public class InputManager implements NativeKeyListener {
-    private static boolean[] keys;
 
     private InputManager() {
     } // Static class should not be constructed
@@ -28,11 +27,6 @@ public class InputManager implements NativeKeyListener {
         }
 
         GlobalScreen.addNativeKeyListener(new InputManager());
-
-        keys = new boolean[255];
-        for (int i = 0; i < 255; i++) {
-            InputManager.keys[i] = false;
-        }
     }
 
     @Override
@@ -41,8 +35,6 @@ public class InputManager implements NativeKeyListener {
             return;
         }
 
-        InputManager.keys[e.getKeyCode()] = true;
-        
         EInputAction action;
         if ((action = ActionMappings.getAction(e.getKeyCode())) != null) {
             Message.send("INPUT_ACTION", this, action);
@@ -51,9 +43,6 @@ public class InputManager implements NativeKeyListener {
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
-        if (e.getKeyCode() > 255) {
-            return;
-        }
-        InputManager.keys[e.getKeyCode()] = false;
+ 
     }
 }
