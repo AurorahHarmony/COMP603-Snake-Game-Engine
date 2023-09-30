@@ -47,10 +47,10 @@ public class Engine implements IMessageHandler {
         this.engineConfig = EngineConfigLoader.load(ENGINE_CONFIG);
         this.renderer = new ConsoleRenderer(this.engineConfig);
 
-        this.loadScene("net.scriptronix.snakegame.game.MainMenuScene");
-
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
+        
+        this.loadScene("net.scriptronix.snakegame.game.MainMenuScene");
 
         loop();
     }
