@@ -2,8 +2,11 @@ package net.scriptronix.snakegame.rendering;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.world.Scene;
 
@@ -11,9 +14,12 @@ import net.scriptronix.snakegame.world.Scene;
  * Renders the game into a JFrame, using Java Swing
  */
 public class SwingRenderer extends JFrame implements IRenderer {
-    /** Amount of pixels to scale rendering values */
-    final private int UNIT_SCALE_FACTOR = 10;
-    
+
+    /**
+     * Amount of pixels to scale rendering values
+     */
+    final public int UNIT_SCALE_FACTOR = 20;
+
     final private EngineConfig engineConfig;
     final private ArrayList<ISwingRenderable> renderList;
 
@@ -21,8 +27,11 @@ public class SwingRenderer extends JFrame implements IRenderer {
         this.engineConfig = engineConfig;
         this.renderList = new ArrayList<>();
         this.initJFrame();
+
+        RenderPanel renderPanel = new RenderPanel(this.renderList);
+        this.getContentPane().add(renderPanel);
     }
-    
+
     /**
      * Setup configuration for the JFrame
      */
@@ -31,10 +40,9 @@ public class SwingRenderer extends JFrame implements IRenderer {
         this.setResizable(false);
         this.setSize(engineConfig.getVirtualWidth(), engineConfig.getVirtualHeight());
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(Color.black);
         this.setVisible(true);
     }
-    
+
     @Override
     public void setSize(int width, int height) {
         super.setSize(width * UNIT_SCALE_FACTOR, height * UNIT_SCALE_FACTOR);
@@ -44,13 +52,52 @@ public class SwingRenderer extends JFrame implements IRenderer {
     public void setSize(Dimension d) {
         d.width = d.width * UNIT_SCALE_FACTOR;
         d.height = d.height * UNIT_SCALE_FACTOR;
-        super.setSize(d); 
-    }
-    
-    @Override
-    public void render(Scene scene) {
-        // For every element in the renderlist, draw it
+        super.setSize(d);
     }
 
+    @Override
+    public void render(Scene scene) {
+        this.refreshRenderList(scene);
+    }
+
+    /**
+     * Updates the renderList, with all objects that are currently renderable.
+     *
+     * @param scene
+     */
+    private void refreshRenderList(Scene scene) {
+        this.renderList.clear();
+
+        scene.getSceneObjects().forEach((sceneObj) -> {
+            if (sceneObj instanceof ISwingRenderable) {
+                ISwingRenderable renderable = (ISwingRenderable) sceneObj;
+                this.renderList.add(renderable);
+            }
+        });
+    }
+
+    private class RenderPanel extends JPanel {
+
+        final private ArrayList<ISwingRenderable> renderList;
+
+        public RenderPanel(ArrayList<ISwingRenderable> renderList) {
+            this.renderList = renderList;
+            this.setBackground(Color.BLACK);
+        }
+
+        @Override
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            g.setFont(new Font("Monospaced", Font.BOLD, UNIT_SCALE_FACTOR));
+            g.setColor(Color.GREEN);
+
+            for (ISwingRenderable renderable : this.renderList) {
+                renderable.draw(g, this, UNIT_SCALE_FACTOR);
+            }
+
+            repaint();
+        }
+    }
 
 }
