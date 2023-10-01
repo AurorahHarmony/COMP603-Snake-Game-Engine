@@ -1,5 +1,7 @@
 package net.scriptronix.snakegame.game;
 
+import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.input.EInputAction;
@@ -8,6 +10,7 @@ import net.scriptronix.snakegame.message.IMessageHandler;
 import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.rendering.ConsolePixel;
 import net.scriptronix.snakegame.rendering.IConsoleRenderable;
+import net.scriptronix.snakegame.rendering.ISwingRenderable;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.SceneObject;
@@ -16,7 +19,7 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 /**
  * The snake player class
  */
-public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
+public class Snake extends SceneObject implements IConsoleRenderable, ISwingRenderable, IMessageHandler, ISimpleCollidable {
 
     final private int INIT_SNAKE_SIZE = 2;
     final private ArrayList<Vector2> bodyParts = new ArrayList<>(); // Head is always the position. Body follows the head.
@@ -55,6 +58,27 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
         }
 
         return cPixArr;
+    }
+
+    @Override
+    public void draw(Graphics g, ImageObserver obeserver, int scaleFactor) {
+        int bodyPartSize = (int)(scaleFactor * 0.8);
+        g.drawOval(
+                this.position.getX() * scaleFactor,
+                this.position.getY() * scaleFactor,
+                bodyPartSize,
+                bodyPartSize
+        );
+
+        for (int i = 0; i < this.bodyParts.size(); i++) {
+            Vector2 bodyPart = this.bodyParts.get(i);
+            g.drawOval(
+                    bodyPart.getX() * scaleFactor,
+                    bodyPart.getY() * scaleFactor,
+                    bodyPartSize,
+                    bodyPartSize
+            );
+        }
     }
 
     @Override
