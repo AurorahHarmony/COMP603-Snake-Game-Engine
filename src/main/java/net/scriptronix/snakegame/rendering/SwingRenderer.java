@@ -22,13 +22,14 @@ public class SwingRenderer extends JFrame implements IRenderer {
 
     final private EngineConfig engineConfig;
     final private ArrayList<ISwingRenderable> renderList;
+    final private RenderPanel renderPanel;
 
     public SwingRenderer(EngineConfig engineConfig) {
         this.engineConfig = engineConfig;
         this.renderList = new ArrayList<>();
         this.initJFrame();
 
-        RenderPanel renderPanel = new RenderPanel(this.renderList);
+        renderPanel = new RenderPanel(this.renderList);
         this.getContentPane().add(renderPanel);
     }
 
@@ -58,6 +59,7 @@ public class SwingRenderer extends JFrame implements IRenderer {
     @Override
     public void render(Scene scene) {
         this.refreshRenderList(scene);
+        this.renderPanel.repaint();
     }
 
     /**
@@ -96,7 +98,6 @@ public class SwingRenderer extends JFrame implements IRenderer {
                 renderable.draw(g, this, UNIT_SCALE_FACTOR);
             }
 
-            repaint();
         }
     }
 
