@@ -1,5 +1,7 @@
 package net.scriptronix.snakegame.world;
 
+import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
@@ -7,11 +9,13 @@ import net.scriptronix.snakegame.message.IMessageHandler;
 import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.rendering.ConsolePixel;
 import net.scriptronix.snakegame.rendering.IConsoleRenderable;
+import net.scriptronix.snakegame.rendering.ISwingRenderable;
+import net.scriptronix.snakegame.rendering.SwingRenderer;
 
 /**
  * Pre-configured SceneObject for interactive Menus
  */
-abstract public class MenuObject extends SceneObject implements IConsoleRenderable, IMessageHandler {
+abstract public class MenuObject extends SceneObject implements IConsoleRenderable, ISwingRenderable, IMessageHandler {
 
     private int selectedMenuItem = 0;
     private final MenuItem[] menuItems;
@@ -56,6 +60,21 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
         }
 
         return pixels.toArray(ConsolePixel[]::new);
+    }
+
+    @Override
+    public void draw(Graphics g, ImageObserver observer, int scaleFactor) {
+        // Cursor
+        Vector2 cursorPosition = Vector2.newFrom(this.position);
+        cursorPosition.add(0, (this.selectedMenuItem * scaleFactor) + scaleFactor);
+        g.drawString(">", cursorPosition.getX(), cursorPosition.getY());
+
+        // MenuItems
+        for (int i = 0; i < this.menuItems.length; i++) {
+            MenuItem menuItem = this.menuItems[i];
+            g.drawString(menuItem.getName(), this.position.getX() + scaleFactor, this.position.getY() + (i * scaleFactor) + scaleFactor);
+        }
+
     }
 
     @Override
@@ -122,9 +141,9 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
         }
 
         public abstract void action();
-        
+
     }
-    
+
     public static MenuItem createSpacerMenuItem() {
         return new MenuItem("") {
             @Override
@@ -135,7 +154,7 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
 
     @Override
     public void destroy() {
-                Message.unsubscribe("INPUT_ACTION", this);
+        Message.unsubscribe("INPUT_ACTION", this);
     }
-    
+
 }
