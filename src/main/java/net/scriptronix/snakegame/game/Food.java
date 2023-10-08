@@ -66,7 +66,7 @@ public class Food extends SceneObject implements IConsoleRenderable, ISwingRende
 
         Graphics2D g2 = (Graphics2D) g;
 
-        int grapeSize = (int) (0.45 * scaleFactor);
+        int grapeSize = (int) (0.4 * scaleFactor);
         int centerX = this.position.getX() * scaleFactor - (grapeSize / 2);
         int centerY = this.position.getY() * scaleFactor - (grapeSize / 2);
 
@@ -103,7 +103,7 @@ public class Food extends SceneObject implements IConsoleRenderable, ISwingRende
     private void drawVine(Graphics2D g2, int grapeSize, int centerX, int centerY) {
         int vineStartY = centerY - (int) (grapeSize * 0.75);
 
-        g2.setColor(Color.green);
-        g2.draw(new Line2D.Float(centerX + (grapeSize / 2), vineStartY, centerX, vineStartY - grapeSize));
+        g2.setColor(new Color(0, 160, 0));
+        g2.draw(new Line2D.Float(centerX + (grapeSize / 2), vineStartY, centerX, vineStartY - (grapeSize / 2)));
     }
 }
