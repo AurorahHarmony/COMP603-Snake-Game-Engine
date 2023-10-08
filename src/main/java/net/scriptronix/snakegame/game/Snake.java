@@ -1,5 +1,6 @@
 package net.scriptronix.snakegame.game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -61,19 +62,29 @@ public class Snake extends SceneObject implements IConsoleRenderable, ISwingRend
 
     @Override
     public void draw(Graphics g, ImageObserver obeserver, int scaleFactor) {
-        int bodyPartSize = (int)(scaleFactor * 0.8);
+
+        g.setColor(Color.GREEN);
+        int bodyPartSize = (int) (scaleFactor * 0.8);
+
+        // Draw Head
+        int centerX = this.position.getX() * scaleFactor - (bodyPartSize / 2);
+        int centerY = this.position.getY() * scaleFactor - (bodyPartSize / 2);
         g.fillOval(
-                this.position.getX() * scaleFactor,
-                this.position.getY() * scaleFactor,
+                centerX,
+                centerY,
                 bodyPartSize,
                 bodyPartSize
         );
 
+        // Draw body parts
+        g.setColor(new Color(0, 100, 80));
         for (int i = 0; i < this.bodyParts.size(); i++) {
             Vector2 bodyPart = this.bodyParts.get(i);
+            centerX = bodyPart.getX() * scaleFactor - (bodyPartSize / 2);
+            centerY = bodyPart.getY() * scaleFactor - (bodyPartSize / 2);
             g.fillOval(
-                    bodyPart.getX() * scaleFactor,
-                    bodyPart.getY() * scaleFactor,
+                    centerX,
+                    centerY,
                     bodyPartSize,
                     bodyPartSize
             );

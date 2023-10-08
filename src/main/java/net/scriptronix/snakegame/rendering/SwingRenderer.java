@@ -92,9 +92,10 @@ public class SwingRenderer extends JFrame implements IRenderer {
             super.paintComponent(g);
 
             g.setFont(new Font("Monospaced", Font.BOLD, UNIT_SCALE_FACTOR));
-            g.setColor(Color.GREEN);
 
             for (ISwingRenderable renderable : this.renderList) {
+                g.setColor(Color.LIGHT_GRAY);
+                
                 renderable.draw(g, this, UNIT_SCALE_FACTOR);
             }
 
