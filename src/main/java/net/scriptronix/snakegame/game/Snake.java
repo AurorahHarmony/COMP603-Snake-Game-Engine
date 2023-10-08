@@ -3,7 +3,6 @@ package net.scriptronix.snakegame.game;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
-import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.IMessageHandler;
@@ -63,7 +62,7 @@ public class Snake extends SceneObject implements IConsoleRenderable, ISwingRend
     @Override
     public void draw(Graphics g, ImageObserver obeserver, int scaleFactor) {
         int bodyPartSize = (int)(scaleFactor * 0.8);
-        g.drawOval(
+        g.fillOval(
                 this.position.getX() * scaleFactor,
                 this.position.getY() * scaleFactor,
                 bodyPartSize,
@@ -72,7 +71,7 @@ public class Snake extends SceneObject implements IConsoleRenderable, ISwingRend
 
         for (int i = 0; i < this.bodyParts.size(); i++) {
             Vector2 bodyPart = this.bodyParts.get(i);
-            g.drawOval(
+            g.fillOval(
                     bodyPart.getX() * scaleFactor,
                     bodyPart.getY() * scaleFactor,
                     bodyPartSize,
