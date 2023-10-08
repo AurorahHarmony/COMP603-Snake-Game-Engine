@@ -65,14 +65,12 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
     @Override
     public void draw(Graphics g, ImageObserver observer, int scaleFactor) {
         // Cursor
-        Vector2 cursorPosition = Vector2.newFrom(this.position);
-        cursorPosition.add(0, (this.selectedMenuItem * scaleFactor) + scaleFactor);
-        g.drawString(">", cursorPosition.getX(), cursorPosition.getY());
+        g.drawString(">", this.position.getX() * scaleFactor, (this.position.getY() * scaleFactor) + (this.selectedMenuItem * scaleFactor) + scaleFactor);
 
         // MenuItems
         for (int i = 0; i < this.menuItems.length; i++) {
             MenuItem menuItem = this.menuItems[i];
-            g.drawString(menuItem.getName(), this.position.getX() + scaleFactor, this.position.getY() + (i * scaleFactor) + scaleFactor);
+            g.drawString(menuItem.getName(), (this.position.getX() * scaleFactor) + scaleFactor, (this.position.getY() * scaleFactor) + (i * scaleFactor) + scaleFactor);
         }
 
     }
