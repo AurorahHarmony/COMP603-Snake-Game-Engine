@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import net.scriptronix.snakegame.EngineConfig;
+import net.scriptronix.snakegame.message.IMessageHandler;
+import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.world.Scene;
 
 /**
  * Renders the game into a JFrame, using Java Swing
  */
-public class SwingRenderer extends JFrame implements IRenderer {
+public class SwingRenderer extends JFrame implements IRenderer, IMessageHandler {
 
     /**
      * Amount of pixels to scale rendering values
@@ -31,6 +33,8 @@ public class SwingRenderer extends JFrame implements IRenderer {
 
         renderPanel = new RenderPanel(this.renderList);
         this.getContentPane().add(renderPanel);
+
+        Message.subscribe("SCREEN_RESIZED", this);
     }
 
     /**
@@ -95,11 +99,17 @@ public class SwingRenderer extends JFrame implements IRenderer {
 
             for (ISwingRenderable renderable : this.renderList) {
                 g.setColor(Color.LIGHT_GRAY);
-                
+
                 renderable.draw(g, this, UNIT_SCALE_FACTOR);
             }
 
         }
+    }
+
+    @Override
+    public void onMessage(Message msg) {
+        if (msg.isCode("SCREEN_RESIZED"))
+            this.setSize(engineConfig.getVirtualWidth(), engineConfig.getVirtualHeight());
     }
 
 }
