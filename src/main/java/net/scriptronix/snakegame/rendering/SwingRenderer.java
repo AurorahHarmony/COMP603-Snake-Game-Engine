@@ -52,7 +52,7 @@ public class SwingRenderer extends JFrame implements IRenderer, IMessageHandler 
 
     @Override
     public void setSize(int width, int height) {
-        super.setSize((width * UNIT_SCALE_FACTOR) + UNIT_SCALE_FACTOR, (height * UNIT_SCALE_FACTOR) + UNIT_SCALE_FACTOR);
+        super.setSize((width * UNIT_SCALE_FACTOR) + UNIT_SCALE_FACTOR, (height * UNIT_SCALE_FACTOR) + (2 * UNIT_SCALE_FACTOR));
     }
 
     @Override
