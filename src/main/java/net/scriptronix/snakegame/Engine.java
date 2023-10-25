@@ -11,6 +11,7 @@ import net.scriptronix.snakegame.message.Message;
 import net.scriptronix.snakegame.message.MessageBus;
 import net.scriptronix.snakegame.rendering.ConsoleRenderer;
 import net.scriptronix.snakegame.rendering.IRenderer;
+import net.scriptronix.snakegame.rendering.SwingRenderer;
 import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.SceneFactory;
 
@@ -45,7 +46,8 @@ public class Engine implements IMessageHandler {
         this.isRunning = false;
 
         this.engineConfig = EngineConfigLoader.load(ENGINE_CONFIG);
-        this.renderer = new ConsoleRenderer(this.engineConfig);
+//        this.renderer = new ConsoleRenderer(this.engineConfig);
+        this.renderer = new SwingRenderer(this.engineConfig);
 
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
