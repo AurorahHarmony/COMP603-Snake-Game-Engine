@@ -17,7 +17,7 @@ public class EngineConfig {
     /**
      * The height of the view port in engine units
      */
-    private int virtualHeight = 10;
+    private int virtualHeight = 40;
 
     /**
      * The duration between each tick in milliseconds

@@ -1,13 +1,14 @@
 package net.scriptronix.snakegame.game;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
-import net.scriptronix.snakegame.Engine;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.IMessageHandler;
 import net.scriptronix.snakegame.message.Message;
-import net.scriptronix.snakegame.rendering.ConsolePixel;
-import net.scriptronix.snakegame.rendering.IConsoleRenderable;
+import net.scriptronix.snakegame.rendering.ISwingRenderable;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.SceneObject;
@@ -16,7 +17,7 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 /**
  * The snake player class
  */
-public class Snake extends SceneObject implements IConsoleRenderable, IMessageHandler, ISimpleCollidable {
+public class Snake extends SceneObject implements ISwingRenderable, IMessageHandler, ISimpleCollidable {
 
     final private int INIT_SNAKE_SIZE = 2;
     final private ArrayList<Vector2> bodyParts = new ArrayList<>(); // Head is always the position. Body follows the head.
@@ -45,16 +46,34 @@ public class Snake extends SceneObject implements IConsoleRenderable, IMessageHa
     }
 
     @Override
-    public ConsolePixel[] getConsolePixels() {
-        ConsolePixel[] cPixArr = new ConsolePixel[bodyParts.size() + 1];
+    public void draw(Graphics g, ImageObserver obeserver, int scaleFactor) {
 
-        ConsolePixel headCPixel = new ConsolePixel(position, 'X');
-        cPixArr[0] = headCPixel;
-        for (int i = 0; i < bodyParts.size(); i++) {
-            cPixArr[i + 1] = new ConsolePixel(bodyParts.get(i), 'O');
+        g.setColor(Color.GREEN);
+        int bodyPartSize = (int) (scaleFactor * 0.8);
+
+        // Draw Head
+        int centerX = this.position.getX() * scaleFactor - (bodyPartSize / 2);
+        int centerY = this.position.getY() * scaleFactor - (bodyPartSize / 2);
+        g.fillOval(
+                centerX,
+                centerY,
+                bodyPartSize,
+                bodyPartSize
+        );
+
+        // Draw body parts
+        g.setColor(new Color(0, 100, 80));
+        for (int i = 0; i < this.bodyParts.size(); i++) {
+            Vector2 bodyPart = this.bodyParts.get(i);
+            centerX = bodyPart.getX() * scaleFactor - (bodyPartSize / 2);
+            centerY = bodyPart.getY() * scaleFactor - (bodyPartSize / 2);
+            g.fillOval(
+                    centerX,
+                    centerY,
+                    bodyPartSize,
+                    bodyPartSize
+            );
         }
-
-        return cPixArr;
     }
 
     @Override
