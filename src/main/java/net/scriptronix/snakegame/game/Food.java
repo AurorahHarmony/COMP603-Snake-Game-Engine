@@ -9,8 +9,6 @@ import java.awt.image.ImageObserver;
 import java.util.Random;
 import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.message.Message;
-import net.scriptronix.snakegame.rendering.ConsolePixel;
-import net.scriptronix.snakegame.rendering.IConsoleRenderable;
 import net.scriptronix.snakegame.rendering.ISwingRenderable;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.Scene;
@@ -20,7 +18,7 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 /**
  * Represents a piece of food that the snake can eat
  */
-public class Food extends SceneObject implements IConsoleRenderable, ISwingRenderable, ISimpleCollidable {
+public class Food extends SceneObject implements ISwingRenderable, ISimpleCollidable {
 
     private final char symbol = '%';
     private final Random rand = new Random();
@@ -28,11 +26,6 @@ public class Food extends SceneObject implements IConsoleRenderable, ISwingRende
     public Food(Scene scene) {
         super(scene);
         this.teleportToRandomLocation();
-    }
-
-    @Override
-    public ConsolePixel[] getConsolePixels() {
-        return new ConsolePixel[]{new ConsolePixel(position, symbol)};
     }
 
     @Override

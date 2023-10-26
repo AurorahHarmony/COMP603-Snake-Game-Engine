@@ -2,20 +2,16 @@ package net.scriptronix.snakegame.world;
 
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
-import java.util.ArrayList;
 import net.scriptronix.snakegame.input.EInputAction;
-import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.IMessageHandler;
 import net.scriptronix.snakegame.message.Message;
-import net.scriptronix.snakegame.rendering.ConsolePixel;
-import net.scriptronix.snakegame.rendering.IConsoleRenderable;
 import net.scriptronix.snakegame.rendering.ISwingRenderable;
 import net.scriptronix.snakegame.rendering.SwingRenderer;
 
 /**
  * Pre-configured SceneObject for interactive Menus
  */
-abstract public class MenuObject extends SceneObject implements IConsoleRenderable, ISwingRenderable, IMessageHandler {
+abstract public class MenuObject extends SceneObject implements ISwingRenderable, IMessageHandler {
 
     private int selectedMenuItem = 0;
     private final MenuItem[] menuItems;
@@ -39,28 +35,6 @@ abstract public class MenuObject extends SceneObject implements IConsoleRenderab
      * @return
      */
     abstract protected MenuItem[] registerMenuItems();
-
-    @Override
-    public ConsolePixel[] getConsolePixels() {
-        ArrayList<ConsolePixel> pixels = new ArrayList<>();
-
-        // Cursor
-        Vector2 pixelPosition = Vector2.newFrom(this.position);
-        pixelPosition.add(0, this.selectedMenuItem);
-        pixels.add(new ConsolePixel(pixelPosition, '>'));
-
-        // MenuItems                
-        for (int i = 0; i < this.menuItems.length; i++) {
-            char[] chars = this.menuItems[i].getName().toCharArray();
-            for (int j = 0; j < chars.length; j++) {
-                pixelPosition = Vector2.newFrom(this.position);
-                pixelPosition.add(1 + j, i); // Offset one space right to allow space for the cursor
-                pixels.add(new ConsolePixel(pixelPosition, chars[j]));
-            }
-        }
-
-        return pixels.toArray(ConsolePixel[]::new);
-    }
 
     @Override
     public void draw(Graphics g, ImageObserver observer, int scaleFactor) {
