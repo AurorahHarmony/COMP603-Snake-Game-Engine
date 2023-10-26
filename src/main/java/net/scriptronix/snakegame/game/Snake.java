@@ -8,8 +8,6 @@ import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.math.Vector2;
 import net.scriptronix.snakegame.message.IMessageHandler;
 import net.scriptronix.snakegame.message.Message;
-import net.scriptronix.snakegame.rendering.ConsolePixel;
-import net.scriptronix.snakegame.rendering.IConsoleRenderable;
 import net.scriptronix.snakegame.rendering.ISwingRenderable;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.Scene;
@@ -19,7 +17,7 @@ import net.scriptronix.snakegame.world.SimpleCollisionEvent;
 /**
  * The snake player class
  */
-public class Snake extends SceneObject implements IConsoleRenderable, ISwingRenderable, IMessageHandler, ISimpleCollidable {
+public class Snake extends SceneObject implements ISwingRenderable, IMessageHandler, ISimpleCollidable {
 
     final private int INIT_SNAKE_SIZE = 2;
     final private ArrayList<Vector2> bodyParts = new ArrayList<>(); // Head is always the position. Body follows the head.
@@ -45,19 +43,6 @@ public class Snake extends SceneObject implements IConsoleRenderable, ISwingRend
         }
 
         this.tailLastPosition = Vector2.newFrom(this.bodyParts.get(this.bodyParts.size() - 1));
-    }
-
-    @Override
-    public ConsolePixel[] getConsolePixels() {
-        ConsolePixel[] cPixArr = new ConsolePixel[bodyParts.size() + 1];
-
-        ConsolePixel headCPixel = new ConsolePixel(position, 'X');
-        cPixArr[0] = headCPixel;
-        for (int i = 0; i < bodyParts.size(); i++) {
-            cPixArr[i + 1] = new ConsolePixel(bodyParts.get(i), 'O');
-        }
-
-        return cPixArr;
     }
 
     @Override
