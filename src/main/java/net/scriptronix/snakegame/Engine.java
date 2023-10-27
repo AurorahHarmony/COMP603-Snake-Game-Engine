@@ -51,9 +51,9 @@ public class Engine implements IMessageHandler {
         this.renderer = new SwingRenderer(this.engineConfig);
         
         DatabaseLoaderConfig dbConfig = new DatabaseLoaderConfig(
-                "jdbc:derby:PlayerDB;create=true",
-                "wormgame",
-                "wormgame");
+                "jdbc:derby:GameDB;create=true",
+                "game",
+                "gamepass");
         this.dbLoader = new DatabaseLoader(dbConfig);
 
         InputManager.initialize();
