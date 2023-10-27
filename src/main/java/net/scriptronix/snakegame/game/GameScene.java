@@ -30,20 +30,18 @@ public class GameScene extends Scene {
         this.gameActive = false;
         this.sceneObjects.clear();
         
-        ScoreBoard scoreBoard = new ScoreBoard();
-        
         TextObject scoreText = new TextObject(this, "You Scored: " + Integer.toString(score));
         this.spawnObject(scoreText);
         
         TextObject lastScoreText = new TextObject(this, "Your last Score: " +  
-                Integer.toString(scoreBoard.getLastScore()));
+                ScoreBoard.getLastScoreString());
         lastScoreText.getPosition().setY(1);
         this.spawnObject(lastScoreText);
         
-        scoreBoard.addNewScore(score);
+        ScoreBoard.addNewScore(score);
         
         TextObject highScoreText = new TextObject(this, "Highest Score: " +  
-                Integer.toString(scoreBoard.getHighScore()));
+                ScoreBoard.getHighScoreString());
         highScoreText.getPosition().setY(2);
         this.spawnObject(highScoreText);
 

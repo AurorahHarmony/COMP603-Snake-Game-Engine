@@ -8,4 +8,11 @@ public class DatabaseFieldStruct {
     public String fieldName;
     /** The SQL type of this field */
     public String sqlType;
+
+    public DatabaseFieldStruct() {}
+    
+    public DatabaseFieldStruct(String fieldName, String sqlType) {
+        this.fieldName = fieldName;
+        this.sqlType = sqlType;
+    }
 }
