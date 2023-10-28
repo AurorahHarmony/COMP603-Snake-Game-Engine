@@ -10,18 +10,16 @@ public class StatsScene extends Scene {
 
     public StatsScene() {
 
-        ScoreBoard scoreBoard = new ScoreBoard();
-
         TextObject scoreText = new TextObject(this, "Game Stats: ");
         this.spawnObject(scoreText);
 
         TextObject lastScoreText = new TextObject(this, "Your last Score: " +
-                Integer.toString(scoreBoard.getLastScore()));
+                ScoreBoard.getLastScoreString());
         lastScoreText.getPosition().setY(1);
         this.spawnObject(lastScoreText);
 
         TextObject highScoreText = new TextObject(this, "Highest Score: " +
-                Integer.toString(scoreBoard.getHighScore()));
+                ScoreBoard.getHighScoreString());
         highScoreText.getPosition().setY(2);
         this.spawnObject(highScoreText);
 

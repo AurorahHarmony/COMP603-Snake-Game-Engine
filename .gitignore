@@ -2,3 +2,6 @@
 src/main/java/net/scriptronix/snakegame/engine.weconf
 src/main/java/net/scriptronix/snakegame/game/scoreboard.txt
 scoreboard.txt
+GameDB
+sample
+engine.weconf

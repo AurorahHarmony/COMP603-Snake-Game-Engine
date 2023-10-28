@@ -3,6 +3,8 @@ package net.scriptronix.snakegame;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.scriptronix.snakegame.assets.DatabaseLoader;
+import net.scriptronix.snakegame.assets.DatabaseLoaderConfig;
 import net.scriptronix.snakegame.assets.EngineConfigLoader;
 import net.scriptronix.snakegame.input.EInputAction;
 import net.scriptronix.snakegame.input.InputManager;
@@ -27,6 +29,7 @@ public class Engine implements IMessageHandler {
     EngineConfig engineConfig;
     IRenderer renderer;
     Scene scene;
+    DatabaseLoader dbLoader;
 
     /**
      * Stands up the engine and starts the game loop.
@@ -46,6 +49,12 @@ public class Engine implements IMessageHandler {
 
         this.engineConfig = EngineConfigLoader.load(ENGINE_CONFIG);
         this.renderer = new SwingRenderer(this.engineConfig);
+        
+        DatabaseLoaderConfig dbConfig = new DatabaseLoaderConfig(
+                "jdbc:derby:GameDB;create=true",
+                "game",
+                "gamepass");
+        this.dbLoader = new DatabaseLoader(dbConfig);
 
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);
@@ -71,6 +80,10 @@ public class Engine implements IMessageHandler {
      */
     public void saveConfig() {
         EngineConfigLoader.save(this.engineConfig, ENGINE_CONFIG);
+    }
+    
+    public DatabaseLoader getDBLoader() {
+        return this.dbLoader;
     }
 
     /**

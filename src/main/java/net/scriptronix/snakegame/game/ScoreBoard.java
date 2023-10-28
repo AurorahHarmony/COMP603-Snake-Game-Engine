@@ -1,49 +1,57 @@
 package net.scriptronix.snakegame.game;
 
-import java.util.HashMap;
-import net.scriptronix.snakegame.assets.KeyValueFileLoader;
-
 /**
  * Manages the scoreboard
  */
 public class ScoreBoard {
 
-    final private static String SCOREBOARD_SAVE_LOCATION = "./scoreboard.txt";
+    /**
+     * @return the last saved score.
+     */
+    public static Integer getLastScore() {
+        ScoreModel lastScore = ScoreModel.getLastScore();
 
-    final private HashMap<String, String> lastSave;
-    private int lastScore;
-    private int highscore;
-
-    public ScoreBoard() {
-        this.lastSave = KeyValueFileLoader.loadFile(SCOREBOARD_SAVE_LOCATION);
-
-        this.lastScore = Integer.parseInt(lastSave.getOrDefault("lastScore", "0"));
-        this.highscore = Integer.parseInt(lastSave.getOrDefault("highScore", "0"));
+        if (lastScore == null)
+            return null;
+        return lastScore.getScore();
     }
 
     /**
-     * @return the last saved score
+     * @return the last saved score as a String. If there is no Score, "None"
+     * will be returned.
      */
-    public int getLastScore() {
-        return this.lastScore;
+    public static String getLastScoreString() {
+        Integer lastScore = getLastScore();
+        return (lastScore == null) ? "None" : lastScore.toString();
     }
 
-    public int getHighScore() {
-        return this.highscore;
+    /**
+     * @return the highest score.
+     */
+    public static Integer getHighScore() {
+        ScoreModel highScore = ScoreModel.getHighScore();
+
+        if (highScore == null)
+            return null;
+        return highScore.getScore();
     }
 
-    public void addNewScore(int score) {
-        this.lastScore = score;
-        if (score > highscore)
-            this.highscore = score;
-        this.save();
+    /**
+     * @return the highest score as a String. If there is no HighScore, "None"
+     * will be returned.
+     */
+    public static String getHighScoreString() {
+        Integer highScore = getHighScore();
+        return (highScore == null) ? "None" : highScore.toString();
     }
 
-    private void save() {
-        lastSave.put("lastScore", Integer.toString(lastScore));
-        lastSave.put("highScore", Integer.toString(highscore));
+    /**
+     * Add a new score to the database
+     *
+     * @param score The score to add
+     */
+    public static void addNewScore(int score) {
+        ScoreModel.createScore(score);
 
-        KeyValueFileLoader.saveFile(lastSave, SCOREBOARD_SAVE_LOCATION);
     }
-
 }
