@@ -37,7 +37,7 @@ public class KeyValueFileLoader {
                 map.put(tokens.nextToken(), tokens.nextToken());
             }
         } catch (IOException ex) {
-            Logger.getLogger(KeyValueFileLoader.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("File " + filePath + " not found. Moving on...");
         } finally {
             if (br != null)
                 try {
