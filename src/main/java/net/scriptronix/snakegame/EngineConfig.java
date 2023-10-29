@@ -92,7 +92,7 @@ public class EngineConfig {
         HashMap<String, String> ec = new HashMap<>();
 
         ec.put("VirtualWidth", Integer.toString(this.virtualWidth));
-        ec.put("virtualHeight", Integer.toString(this.virtualHeight));
+        ec.put("VirtualHeight", Integer.toString(this.virtualHeight));
 
         return ec;
     }
