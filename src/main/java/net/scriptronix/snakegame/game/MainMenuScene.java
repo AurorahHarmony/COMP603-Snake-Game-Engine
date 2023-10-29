@@ -10,6 +10,16 @@ public class MainMenuScene extends Scene {
 
     public MainMenuScene() {
         this.spawnObject(new MainMenu(this));
+
+        TextObject controlHelpTitle = new TextObject(this, "Controls:");
+        controlHelpTitle.getPosition().setY(6);
+        TextObject controlHelpMove = new TextObject(this, "Move: W,A,S,D");
+        controlHelpMove.getPosition().setX(1).setY(7);
+        TextObject controlHelpSelect = new TextObject(this, "Select: Enter");
+        controlHelpSelect.getPosition().setX(1).setY(8);
+        TextObject controlHelpQuit = new TextObject(this, "Quit: Escape");
+        controlHelpQuit.getPosition().setX(1).setY(9);
+        this.spawnObjects(controlHelpTitle, controlHelpMove, controlHelpSelect, controlHelpQuit);
     }
-    
+
 }
