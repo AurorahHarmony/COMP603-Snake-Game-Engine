@@ -25,7 +25,6 @@ public class OptionsMenu extends MenuObject {
                     Engine.getInstance().loadScene("net.scriptronix.snakegame.game.MainMenuScene");
                 }
             },
-            MenuObject.createSpacerMenuItem(),
             // Increase Screen Width
             new MenuObject.MenuItem("Increase Screen Width") {
                 public void action() {
@@ -41,7 +40,22 @@ public class OptionsMenu extends MenuObject {
                     ec.setVirtualWidth(ec.getVirtualWidth() - 1);
                     ec.save();
                 }
-            }, // TODO: Add more options
+            },
+            new MenuObject.MenuItem("Increase Screen Height") {
+                public void action() {
+                    EngineConfig ec = Engine.getInstance().getConfig();
+                    ec.setVirtualHeight(ec.getVirtualHeight() + 1);
+                    ec.save();
+                }
+            },
+            // Decrease Screen Width
+            new MenuObject.MenuItem("Decrease Screen Height") {
+                public void action() {
+                    EngineConfig ec = Engine.getInstance().getConfig();
+                    ec.setVirtualHeight(ec.getVirtualHeight() - 1);
+                    ec.save();
+                }
+            },// TODO: Add more options
         };
     }
 
