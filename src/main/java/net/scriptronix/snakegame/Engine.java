@@ -1,6 +1,7 @@
 package net.scriptronix.snakegame;
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.scriptronix.snakegame.assets.DatabaseLoader;
@@ -54,7 +55,13 @@ public class Engine implements IMessageHandler {
                 "jdbc:derby:GameDB;create=true",
                 "game",
                 "gamepass");
-        this.dbLoader = new DatabaseLoader(dbConfig);
+        
+        try {
+            this.dbLoader = new DatabaseLoader(dbConfig);
+        } catch (SQLException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
+        }
 
         InputManager.initialize();
         Message.subscribe("INPUT_ACTION", this);

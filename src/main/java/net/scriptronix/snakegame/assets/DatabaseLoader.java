@@ -18,35 +18,26 @@ import java.util.logging.Logger;
  */
 public class DatabaseLoader {
 
-    Connection connection = null;
+    final private Connection connection;
 
     /**
      * Stores the config a database loader
      */
-    DatabaseLoaderConfig config;
+    final private DatabaseLoaderConfig config;
 
     /**
      * Constructs a new instance of the DatabaseLoader using the provided config
      *
      * @param config
      */
-    public DatabaseLoader(DatabaseLoaderConfig config) {
+    public DatabaseLoader(DatabaseLoaderConfig config) throws SQLException {
         this.config = config;
 
-        try {
-            this.connectDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.connection = DriverManager.getConnection(this.config.url, this.config.username, this.config.password);
     }
 
-    /**
-     * Initiates a connection to the database
-     *
-     * @throws SQLException
-     */
-    private void connectDB() throws SQLException {
-        this.connection = DriverManager.getConnection(this.config.url, this.config.username, this.config.password);
+    public Connection getConnection() {
+        return this.connection;
     }
 
     /**
@@ -229,15 +220,16 @@ public class DatabaseLoader {
         }
     }
 
+
     /**
-     * Get ordered rows from a table
+     * Get ordered rows from a table in Descending order.
      *
      * @param tableName The name of the table to get the rows from
      * @param column The column to order by
      * @return An ArrayList of Rows
      */
     public ArrayList<HashMap<String, Object>> getOrderedRows(String tableName, String column) {
-        return getOrderedRows(tableName, column, 10);
+        return getOrderedRows(tableName, column, ESortDirection.DESCENDING);
     }
 
     /**
@@ -245,23 +237,10 @@ public class DatabaseLoader {
      *
      * @param tableName The name of the table to get the rows from
      * @param column The column to order by
-     * @param limit The max amount of rows to return
-     * @return An ArrayList of Rows
-     */
-    public ArrayList<HashMap<String, Object>> getOrderedRows(String tableName, String column, int limit) {
-        return getOrderedRows(tableName, column, limit, ESortDirection.DESCENDING);
-    }
-
-    /**
-     * Get ordered rows from a table
-     *
-     * @param tableName The name of the table to get the rows from
-     * @param column The column to order by
-     * @param limit The max amount of rows to return
      * @param direction Sort direction. Ascending or Descending.
      * @return An ArrayList of Rows
      */
-    public ArrayList<HashMap<String, Object>> getOrderedRows(String tableName, String column, int limit, ESortDirection direction) {
+    public ArrayList<HashMap<String, Object>> getOrderedRows(String tableName, String column, ESortDirection direction) {
         ArrayList<HashMap<String, Object>> rows = new ArrayList<>();
 
         String sql = "SELECT * FROM " + tableName + " ORDER BY " + column + " " + direction.sqlRepresentation();
