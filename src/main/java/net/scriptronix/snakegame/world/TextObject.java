@@ -23,7 +23,7 @@ public class TextObject extends SceneObject implements ISwingRenderable {
 
     @Override
     public void draw(Graphics g, ImageObserver obeserver, int scaleFactor) {
-        g.drawString(this.displayText, this.position.getX() * scaleFactor, this.position.getY() * scaleFactor);
+        g.drawString(this.displayText, this.position.getX() * scaleFactor, (this.position.getY() * scaleFactor) + scaleFactor);
     }
 
 }
