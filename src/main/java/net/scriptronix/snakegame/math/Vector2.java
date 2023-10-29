@@ -35,9 +35,11 @@ public class Vector2 {
 
     /**
      * @param x the x position to set
+     * @return This Vector2, to allow for chaining
      */
-    public void setX(int x) {
+    public Vector2 setX(int x) {
         this.x = x;
+        return this;
     }
 
     /**
@@ -49,9 +51,11 @@ public class Vector2 {
 
     /**
      * @param y the y position to set
+     * @return This Vector2, to allow for chaining
      */
-    public void setY(int y) {
+    public Vector2 setY(int y) {
         this.y = y;
+        return this;
     }
 
     /**
@@ -63,7 +67,7 @@ public class Vector2 {
         this.x += vec.x;
         this.y += vec.y;
     }
-    
+
     /**
      * Add X and Y values to this Vector2
      *
