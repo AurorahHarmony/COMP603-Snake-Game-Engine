@@ -52,7 +52,7 @@ final public class ScoreModel extends BaseModel {
     public static ScoreModel getLastScore() {
         initTable(ScoreModel.class);
 
-        ArrayList<HashMap<String, Object>> scores = dbLoader.getOrderedRows(ScoreModel.getTableName(), "id", 1);
+        ArrayList<HashMap<String, Object>> scores = dbLoader.getOrderedRows(ScoreModel.getTableName(), "id");
 
         if (scores.size() < 1)
             return null;
@@ -74,7 +74,7 @@ final public class ScoreModel extends BaseModel {
     public static ScoreModel getHighScore() {
         initTable(ScoreModel.class);
 
-        ArrayList<HashMap<String, Object>> scores = dbLoader.getOrderedRows(ScoreModel.getTableName(), "score", 1);
+        ArrayList<HashMap<String, Object>> scores = dbLoader.getOrderedRows(ScoreModel.getTableName(), "score");
 
         if (scores.size() < 1)
             return null;
