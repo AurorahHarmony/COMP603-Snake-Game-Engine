@@ -18,11 +18,11 @@ public class EngineConfig {
     /**
      * The width of the view port in engine units
      */
-    private int virtualWidth = 40;
+    private int virtualWidth = MINSCREENWIDTH;
     /**
      * The height of the view port in engine units
      */
-    private int virtualHeight = 40;
+    private int virtualHeight = MINSCREENWIDTH;
 
     /**
      * The duration between each tick in milliseconds
