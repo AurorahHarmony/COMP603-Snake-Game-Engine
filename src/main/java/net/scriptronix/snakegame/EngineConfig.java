@@ -10,6 +10,11 @@ import net.scriptronix.snakegame.message.Message;
  */
 public class EngineConfig {
 
+    final private int MINSCREENWIDTH = 20;
+    final private int MAXSCREENWIDTH = 40;
+    final private int MINSCREENHEIGHT = 20;
+    final private int MAXSCREENHEIGHT = 40;
+
     /**
      * The width of the view port in engine units
      */
@@ -35,7 +40,7 @@ public class EngineConfig {
      * @param virtualWidth the virtualWidth to set
      */
     public void setVirtualWidth(int virtualWidth) {
-        this.virtualWidth = Math.max(virtualWidth, 20); // Set a min of 20
+        this.virtualWidth = Math.min(Math.max(virtualWidth, MINSCREENWIDTH), MAXSCREENWIDTH);
         Message.send("SCREEN_RESIZED", this);
     }
 
@@ -50,7 +55,7 @@ public class EngineConfig {
      * @param virtualHeight the virtualHeight to set
      */
     public void setVirtualHeight(int virtualHeight) {
-        this.virtualHeight = virtualHeight;
+        this.virtualHeight = Math.min(Math.max(virtualHeight, MINSCREENHEIGHT), MAXSCREENHEIGHT);
         Message.send("SCREEN_RESIZED", this);
     }
 
@@ -70,28 +75,28 @@ public class EngineConfig {
     public void setTickDuration(int tickDuration) {
         this.tickDuration = tickDuration;
     }
-    
+
     /**
      * Updates the TickDuratin to match the fps
-     * @param fps 
+     *
+     * @param fps
      */
     public void setFPS(int fps) {
         this.tickDuration = 1000 / fps;
     }
-    
+
     /**
      * @return EngineConfig in HashMap form
      */
     public HashMap<String, String> toHashMap() {
         HashMap<String, String> ec = new HashMap<>();
-        
+
         ec.put("VirtualWidth", Integer.toString(this.virtualWidth));
         ec.put("virtualHeight", Integer.toString(this.virtualHeight));
-        ec.put("tickDuration", Integer.toString(this.tickDuration));
-                
+
         return ec;
     }
-    
+
     /**
      * Generates an EngineConfig from a HashMap
      *
@@ -117,12 +122,12 @@ public class EngineConfig {
 
         return ec;
     }
-    
+
     /**
      * Shortcut to call saveConfig on the Engine Instance
      */
     public void save() {
         Engine.getInstance().saveConfig();
     }
-    
+
 }
