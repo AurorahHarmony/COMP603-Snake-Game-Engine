@@ -1,6 +1,7 @@
 package net.scriptronix.snakegame.world;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import net.scriptronix.snakegame.Engine;
 
 /**
@@ -16,6 +17,14 @@ public class Scene {
      */
     public void spawnObject(SceneObject sceneObject) {
         this.sceneObjects.add(sceneObject);
+    }
+    
+    /**
+     * Spawn multiple new objects in the scene.
+     * @param sceneObjects 
+     */
+    public void spawnObjects(SceneObject ...sceneObjects) {
+        this.sceneObjects.addAll(Arrays.asList(sceneObjects));
     }
     
     /**
