@@ -81,4 +81,18 @@ public class MessageBus {
             node.getHandler().onMessage(node.getMessage());
         }
     }
+    
+    /**
+     * Removes all subscriptions from the MessageBus
+     */
+    public static void clearSubscriptions() {
+        MessageBus.subscriptions.clear();
+    }
+    
+    /**
+     * Removes all unprocessed messages from the MessageBus
+     */
+    public static void clearMessageQueue() {
+        MessageBus.messageQueue.clear();
+    }
 }
