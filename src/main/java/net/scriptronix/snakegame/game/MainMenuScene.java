@@ -1,5 +1,7 @@
 package net.scriptronix.snakegame.game;
 
+import net.scriptronix.snakegame.Engine;
+import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.TextObject;
 
@@ -9,6 +11,9 @@ import net.scriptronix.snakegame.world.TextObject;
 public class MainMenuScene extends Scene {
 
     public MainMenuScene() {
+        EngineConfig ec = Engine.getInstance().getConfig();
+        ec.setFPS(60);
+        
         this.spawnObject(new MainMenu(this));
 
         TextObject controlHelpTitle = new TextObject(this, "Controls:");

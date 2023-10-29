@@ -31,7 +31,7 @@ public class OptionsMenu extends MenuObject {
                 public void action() {
                     EngineConfig ec = Engine.getInstance().getConfig();
                     ec.setVirtualWidth(ec.getVirtualWidth() + 1);
-                    Engine.getInstance().saveConfig();
+                    ec.save();
                 }
             },
             // Decrease Screen Width
@@ -39,8 +39,7 @@ public class OptionsMenu extends MenuObject {
                 public void action() {
                     EngineConfig ec = Engine.getInstance().getConfig();
                     ec.setVirtualWidth(ec.getVirtualWidth() - 1);
-                    Engine.getInstance().saveConfig();
-
+                    ec.save();
                 }
             }, // TODO: Add more options
         };

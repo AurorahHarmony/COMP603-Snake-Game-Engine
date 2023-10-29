@@ -2,6 +2,8 @@ package net.scriptronix.snakegame.game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.scriptronix.snakegame.Engine;
+import net.scriptronix.snakegame.EngineConfig;
 import net.scriptronix.snakegame.world.ISimpleCollidable;
 import net.scriptronix.snakegame.world.Scene;
 import net.scriptronix.snakegame.world.SceneObject;
@@ -17,6 +19,9 @@ public class GameScene extends Scene {
     private boolean gameActive;
 
     public GameScene() {
+        EngineConfig ec = Engine.getInstance().getConfig();
+        ec.setFPS(4);
+
         this.spawnObject(new Snake(this));
         this.spawnObject(new Food(this));
         this.gameActive = true;
@@ -24,23 +29,24 @@ public class GameScene extends Scene {
 
     /**
      * Show the gameOver screen
-     * @param score 
+     *
+     * @param score
      */
     public void gameOver(int score) {
         this.gameActive = false;
         this.sceneObjects.clear();
-        
+
         TextObject scoreText = new TextObject(this, "You Scored: " + Integer.toString(score));
         this.spawnObject(scoreText);
-        
-        TextObject lastScoreText = new TextObject(this, "Your last Score: " +  
+
+        TextObject lastScoreText = new TextObject(this, "Your last Score: " +
                 ScoreBoard.getLastScoreString());
         lastScoreText.getPosition().setY(1);
         this.spawnObject(lastScoreText);
-        
+
         ScoreBoard.addNewScore(score);
-        
-        TextObject highScoreText = new TextObject(this, "Highest Score: " +  
+
+        TextObject highScoreText = new TextObject(this, "Highest Score: " +
                 ScoreBoard.getHighScoreString());
         highScoreText.getPosition().setY(2);
         this.spawnObject(highScoreText);

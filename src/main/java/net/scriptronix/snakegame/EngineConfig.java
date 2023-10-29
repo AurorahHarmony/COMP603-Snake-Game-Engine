@@ -72,6 +72,14 @@ public class EngineConfig {
     }
     
     /**
+     * Updates the TickDuratin to match the fps
+     * @param fps 
+     */
+    public void setFPS(int fps) {
+        this.tickDuration = 1000 / fps;
+    }
+    
+    /**
      * @return EngineConfig in HashMap form
      */
     public HashMap<String, String> toHashMap() {
@@ -108,6 +116,13 @@ public class EngineConfig {
         }
 
         return ec;
+    }
+    
+    /**
+     * Shortcut to call saveConfig on the Engine Instance
+     */
+    public void save() {
+        Engine.getInstance().saveConfig();
     }
     
 }
